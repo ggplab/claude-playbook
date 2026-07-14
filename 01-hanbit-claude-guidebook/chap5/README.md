@@ -36,4 +36,4 @@
 |------|------|
 | `seoul-apt-latest.csv` | 실습 데이터 (5.2.3에서 내려받는 파일) |
 | `chap5_PRD.md` | 5.2.4 PRD 기준본 (집필 진행 중 업데이트) |
-| `index.html` | 5.2.5 대시보드 기준본 (집필 진행 중 업데이트) |
+| (기준본 소스) | 완성본 대시보드 소스는 [ggplab/apt-dashboard](https://github.com/ggplab/apt-dashboard) 저장소 · 라이브: https://ggplab.github.io/apt-dashboard |
