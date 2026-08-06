@@ -7,7 +7,7 @@
 | 항목 | 내용 |
 |------|------|
 | 유즈케이스 | 연말정산 준비 조사를 조사팀에게 맡기고, 결과를 공유용 카드로 받기 |
-| 사용 기능 | 클로드 코드(CLI), 플랜 모드, 서브에이전트, 스킬 설치, 상태줄 |
+| 사용 기능 | 클로드 코드(CLI), 플랜 모드, 서브에이전트, 아티팩트, 스킬 설치 |
 | 산출물 | 조사 계획서(`Plan.md`) · 조사팀 세 명 · 조사 보고서 · 아티팩트 · PDF · 공유용 카드 |
 
 ## 파일
@@ -17,8 +17,6 @@
 | [`outputs/`](./outputs) | **7장을 완주해서 나온 산출물 기준본.** 따라 하다 막혔을 때 "제대로 나온 모양"을 확인한다 |
 | [`Chap7_card-design-system.md`](./Chap7_card-design-system.md) | 카드가 메신저에서 실제로 읽히게 하는 최소 기준. 카드를 만들 때 클로드에게 함께 준다 |
 | [`skills/markdown-to-pdf/`](./skills/markdown-to-pdf) | 마크다운을 PDF로 만드는 스킬. 보고서를 문서로 남길 때 쓴다 |
-| [`Chap7_statusline_install.md`](./Chap7_statusline_install.md) | 상태줄 설치 안내와 안 뜰 때 점검 목록 |
-| [`Chap7_statusline-command.sh`](./Chap7_statusline-command.sh) | 상태줄 스크립트 본체 |
 
 ## 스킬 설치하기
 
