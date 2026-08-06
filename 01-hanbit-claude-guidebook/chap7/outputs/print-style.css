@@ -1,0 +1,197 @@
+/* ============================================================
+   print-style.css — 연말정산 보고서 인쇄용 스타일
+   DESIGN.md(원티드 Montage, light 기준)를 A4 인쇄 매체로 옮긴 것.
+   대상: markdown-to-pdf 스킬 (--css), A4 / 여백 2cm / 본문폭 170mm
+   ============================================================ */
+
+/* ── DESIGN.md §1 색 토큰 ── */
+:root{
+  --bg:         #FFFFFF;                  /* background.normal.normal */
+  --bg-alt:     #F7F7F8;                  /* background.normal.alternative */
+  --text:       #171719;                  /* label.normal */
+  --text-strong:#000000;                  /* label.strong */
+  --text-muted: rgba(46, 47, 51, 0.88);   /* label.neutral */
+  --text-faint: rgba(55, 56, 60, 0.61);   /* label.alternative */
+  --line:       #E1E2E4;                  /* line.solid.normal */
+  --blue:       #0066FF;                  /* primary.normal */
+  --blue-heavy: #0054D1;                  /* primary.heavy */
+  --orange:     #FF9200;                  /* status.cautionary */
+  --red:        #FF4242;                  /* status.negative */
+}
+
+/* ── DESIGN.md §2.1 서체 (인쇄 폴백 포함) ── */
+body{
+  font-family: 'Wanted Sans Variable','Wanted Sans','Pretendard Variable','Pretendard',
+               'Malgun Gothic','Apple SD Gothic Neo', system-ui, sans-serif;
+  font-size: 16px;        /* §2.2 body1 */
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  word-break: keep-all;   /* 한글 어절 단위 줄바꿈 */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── DESIGN.md §2.2 타이포 스케일 · §2.3 굵기 3단(400/500/600~700) ── */
+h1, h2, h3, h4, h5, h6{
+  color: var(--text-strong);
+  text-wrap: balance;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+h1{                                        /* title1 */
+  font-size: 32px; line-height: 44px; font-weight: 700;
+  letter-spacing: -0.6px;
+  margin: 0 0 16px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--text-strong);
+}
+
+h2{                                        /* title3 */
+  font-size: 24px; line-height: 32px; font-weight: 700;
+  letter-spacing: -0.4px;
+  margin: 40px 0 16px;
+}
+
+h3{                                        /* heading2 */
+  font-size: 20px; line-height: 28px; font-weight: 600;
+  margin: 32px 0 12px;
+}
+
+h4{                                        /* headline1 */
+  font-size: 18px; line-height: 26px; font-weight: 600;
+  margin: 24px 0 8px;
+}
+
+h5, h6{
+  font-size: 16px; line-height: 24px; font-weight: 600;
+  margin: 20px 0 8px;
+}
+
+/* ── 본문 ── */
+p{
+  margin: 0 0 12px;
+  color: var(--text-muted);
+  orphans: 3;
+  widows: 3;
+}
+
+strong{ font-weight: 600; color: var(--text); }
+em{ font-style: normal; font-weight: 500; color: var(--text); }
+
+a{
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.32);
+}
+
+/* ── 목록 — DESIGN.md §3.1 간격(4의 배수) ── */
+ul, ol{
+  margin: 0 0 16px;
+  padding-left: 20px;
+  color: var(--text-muted);
+}
+li{ margin-bottom: 4px; }
+li > ul, li > ol{ margin: 4px 0 0; }
+
+/* 체크리스트(- [ ])는 marked가 disabled checkbox로 렌더한다 */
+li input[type="checkbox"]{
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  margin: 0 8px 0 -20px;
+  border: 1.5px solid var(--text-faint);
+  border-radius: 3px;
+  vertical-align: -1px;
+}
+ul:has(> li > input[type="checkbox"]){ list-style: none; padding-left: 20px; }
+
+/* ── 표 — DESIGN.md §3.1 셀 여백 12px, 좌측 정렬 ── */
+table{
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 24px;
+  font-variant-numeric: tabular-nums;
+  break-inside: auto;
+}
+thead{ display: table-header-group; }   /* 페이지 넘어가도 머리행 반복 */
+tr{ break-inside: avoid; page-break-inside: avoid; }
+
+th, td{
+  text-align: left;
+  vertical-align: top;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+th{
+  font-size: 14px;                       /* §2.2 label1 */
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--text-faint);
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--text-faint);
+}
+
+td{ color: var(--text-muted); }
+td:first-child{ color: var(--text); }
+
+/* ── 인용 ── */
+blockquote{
+  margin: 0 0 20px;
+  padding: 12px 0 12px 16px;
+  border-left: 2px solid var(--line);
+  color: var(--text-muted);
+  font-size: 15px;                       /* §2.2 body2 */
+  line-height: 22px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+blockquote p{ margin-bottom: 8px; font-size: 15px; line-height: 22px; }
+blockquote p:last-child{ margin-bottom: 0; }
+blockquote strong{ color: var(--text); }
+
+/* ── 코드 ── */
+code{
+  font-family: Consolas, 'SFMono-Regular', Menlo, monospace;
+  font-size: 15px;
+  background: var(--bg-alt);
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: var(--text);
+}
+
+pre{
+  margin: 0 0 20px;
+  padding: 16px;
+  background: var(--bg-alt);
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 22px;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+pre code{ background: none; padding: 0; border-radius: 0; font-size: 15px; }
+
+/* ── 구분선 (마크다운 ---) ── */
+hr{
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 32px 0;
+}
+
+/* ── 인쇄 페이지 ── */
+@page{
+  size: A4;
+  margin: 2cm;
+}
+
+img{ max-width: 100%; }

@@ -1,0 +1,839 @@
+<title>2026년 귀속 연말정산 준비 보고서</title>
+
+<style>
+/* ─────────────────────────────────────────────
+   토큰 — DESIGN.md §1 (원티드 Montage, light 기준)
+   ───────────────────────────────────────────── */
+:root{
+  color-scheme: light;
+
+  --bg:        #FFFFFF;                     /* background.normal.normal */
+  --bg-alt:    #F7F7F8;                     /* background.normal.alternative */
+  --text:      #171719;                     /* label.normal */
+  --text-strong:#000000;                    /* label.strong */
+  --text-muted: rgba(46, 47, 51, 0.88);     /* label.neutral */
+  --text-faint: rgba(55, 56, 60, 0.61);     /* label.alternative */
+  --line:      #E1E2E4;                     /* line.solid.normal */
+
+  --blue:       #0066FF;                    /* primary.normal */
+  --blue-strong:#005EEB;                    /* primary.strong */
+  --blue-heavy: #0054D1;                    /* primary.heavy */
+
+  --green:  #00BF40;                        /* status.positive */
+  --red:    #FF4242;                        /* status.negative */
+  --orange: #FF9200;                        /* status.cautionary */
+
+  /* DESIGN.md §3.1 — 4의 배수만 사용 */
+  --pad: 20px;                              /* 모바일 좌우 여백 */
+  --font: 'Wanted Sans Variable','Wanted Sans','Pretendard Variable','Pretendard',
+          -apple-system, BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',
+          system-ui, sans-serif;
+}
+@media (min-width: 768px){ :root{ --pad: 48px; } }
+
+/* 이 문서는 DESIGN.md §5에 따라 light 단일 모드로 확정.
+   뷰어가 다크 테마여도 동일하게 보이도록 값을 고정한다. */
+:root[data-theme="dark"], :root[data-theme="light"]{ color-scheme: light; }
+
+*{ box-sizing: border-box; }
+
+html{ -webkit-text-size-adjust: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;      /* DESIGN.md §2.2 body1 */
+  line-height: 24px;
+  font-weight: 400;
+  overflow-x: hidden;   /* 본문은 절대 가로로 밀리지 않는다 */
+  word-break: keep-all; /* 한글 어절 단위 줄바꿈 */
+}
+
+.wrap{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--pad) 64px;
+}
+
+/* ── 타이포 위계 — DESIGN.md §2.2 / §2.3 (굵기 400·500·600~700 3단) ── */
+h1,h2,h3,h4{ margin: 0; text-wrap: balance; }
+
+h1{ font-size: 24px; line-height: 32px; font-weight: 700; color: var(--text-strong); letter-spacing: -0.4px; }
+@media (min-width: 768px){ h1{ font-size: 32px; line-height: 44px; } }
+
+h2{ font-size: 20px; line-height: 28px; font-weight: 700; color: var(--text-strong); letter-spacing: -0.3px; }
+@media (min-width: 768px){ h2{ font-size: 24px; line-height: 32px; } }
+
+h3{ font-size: 18px; line-height: 26px; font-weight: 600; }
+@media (min-width: 768px){ h3{ font-size: 20px; line-height: 28px; } }
+
+h4{ font-size: 16px; line-height: 24px; font-weight: 600; }
+@media (min-width: 768px){ h4{ font-size: 18px; line-height: 26px; } }
+
+p{ margin: 0; color: var(--text-muted); }
+strong{ font-weight: 600; color: var(--text); }
+a{ color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(0,102,255,0.28); }
+a:hover{ color: var(--blue-strong); border-bottom-color: var(--blue-strong); }
+a:focus-visible,
+input[type="checkbox"]:focus-visible,
+button:focus-visible{ outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+
+.eyebrow{
+  font-size: 14px; line-height: 20px; font-weight: 500;
+  letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--blue);
+}
+.meta{ font-size: 14px; line-height: 20px; font-weight: 400; color: var(--text-faint); }
+
+/* ── 섹션 리듬 — DESIGN.md §3.1 (섹션 사이 32px, 내부 20~24px) ── */
+section{
+  display: flex; flex-direction: column; gap: 20px;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+}
+section > .stack{ display: flex; flex-direction: column; gap: 16px; }
+.sec-head{ display: flex; flex-direction: column; gap: 8px; }
+
+/* ── 헤더 ── */
+header{ display: flex; flex-direction: column; gap: 16px; padding: 40px 0 8px; }
+.cond{
+  background: var(--bg-alt); border-radius: 8px; padding: 16px 20px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.cond dt{ font-size: 14px; line-height: 20px; font-weight: 500; color: var(--text-faint); }
+.cond dd{ margin: 0; font-size: 16px; line-height: 24px; }
+
+.notice{
+  border-left: 3px solid var(--line); padding: 4px 0 4px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  font-size: 15px; line-height: 22px; color: var(--text-muted);
+}
+.notice.warn{ border-left-color: var(--orange); }
+
+/* ── 목차 ── */
+nav.toc{ display: flex; flex-wrap: wrap; gap: 8px; padding-top: 8px; }
+nav.toc a{
+  font-size: 14px; line-height: 20px; font-weight: 500;
+  padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
+  color: var(--text-muted); border-bottom-color: var(--line);
+}
+nav.toc a:hover{ border-color: var(--blue); color: var(--blue); }
+
+/* ── 체크리스트 타임라인 ── */
+.timeline{ display: flex; flex-direction: column; gap: 24px; }
+.phase{ position: relative; padding-left: 24px; }
+.phase::before{
+  content:""; position: absolute; left: 4px; top: 20px; bottom: -24px;
+  width: 1px; background: var(--line);
+}
+.phase:last-child::before{ display: none; }
+.phase::after{
+  content:""; position: absolute; left: 0; top: 8px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--line);
+}
+.phase.now::after{ background: var(--blue); border-color: var(--blue); }
+
+.phase-head{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.phase-when{ font-size: 16px; line-height: 24px; font-weight: 600; }
+.phase-note{ font-size: 14px; line-height: 20px; color: var(--text-faint); }
+
+.checks{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.checks li{ display: block; }
+.checks label{
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 8px 12px; margin-left: -12px; border-radius: 8px;
+  font-size: 16px; line-height: 24px; cursor: pointer;
+}
+.checks label:hover{ background: var(--bg-alt); }
+.checks input[type="checkbox"]{
+  appearance: none; -webkit-appearance: none;
+  flex: 0 0 auto; width: 20px; height: 20px; margin: 2px 0 0;
+  border: 1.5px solid var(--text-faint); border-radius: 4px;
+  background: var(--bg); cursor: pointer;
+}
+.checks input[type="checkbox"]:checked{ background: var(--blue); border-color: var(--blue); }
+.checks input[type="checkbox"]:checked::after{
+  content:""; display: block; width: 5px; height: 10px; margin: 1px 0 0 5px;
+  border: solid #FFFFFF; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.checks input:checked + span{ color: var(--text-faint); text-decoration: line-through; }
+.checks .tag{
+  display: inline-block; margin-left: 4px; padding: 0 6px;
+  font-size: 12px; line-height: 20px; font-weight: 500;
+  color: var(--blue); background: rgba(0,102,255,0.08); border-radius: 4px;
+  vertical-align: 1px; text-decoration: none;
+}
+.progress{ display: flex; align-items: center; gap: 12px; font-size: 14px; line-height: 20px; color: var(--text-faint); }
+.progress button{
+  font: inherit; font-weight: 500; color: var(--text-faint);
+  background: none; border: 1px solid var(--line); border-radius: 999px;
+  padding: 4px 12px; cursor: pointer;
+}
+.progress button:hover{ color: var(--blue); border-color: var(--blue); }
+
+/* ── 정의형 표 (2열) : 모바일에서 세로로 쌓인다 ── */
+.dl{ display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+.dl > div{
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.dl dt{ font-size: 14px; line-height: 20px; font-weight: 500; color: var(--text-faint); }
+.dl dd{ margin: 0; font-size: 16px; line-height: 24px; color: var(--text-muted); }
+@media (min-width: 600px){
+  .dl > div{ flex-direction: row; gap: 16px; align-items: baseline; }
+  .dl dt{ flex: 0 0 168px; }
+  .dl dd{ flex: 1 1 auto; }
+}
+
+/* ── 진짜 표 (3열 이상) : 표만 가로 스크롤 ── */
+.tbl{ overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); }
+@media (min-width: 768px){ .tbl{ margin: 0; padding: 0; } }
+table{
+  border-collapse: collapse; width: 100%; min-width: 480px;
+  font-size: 16px; line-height: 24px;
+  font-variant-numeric: tabular-nums;
+}
+th, td{ text-align: left; padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th{ font-size: 14px; line-height: 20px; font-weight: 500; color: var(--text-faint); white-space: nowrap; }
+thead th{ border-bottom: 1px solid var(--text-faint); }
+td{ color: var(--text-muted); }
+td:first-child{ color: var(--text); }
+.scroll-hint{ font-size: 14px; line-height: 20px; color: var(--text-faint); margin-top: 8px; }
+@media (min-width: 768px){ .scroll-hint{ display: none; } }
+
+/* ── 카드 ── */
+.cards{ display: flex; flex-direction: column; gap: 12px; }
+@media (min-width: 600px){ .cards{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } }
+.card{
+  background: var(--bg-alt); border-radius: 8px; padding: 20px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.card h4{ font-size: 16px; line-height: 24px; }
+.card p{ font-size: 15px; line-height: 22px; }
+.card.flag{ background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--orange); }
+
+/* ── 강조 블록 ── */
+.spot{
+  border: 1px solid var(--line); border-radius: 8px; padding: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.spot.key{ border-color: var(--blue); }
+.spot.risk{ border-left: 3px solid var(--red); }
+
+blockquote{
+  margin: 0; padding: 12px 0 12px 16px; border-left: 2px solid var(--line);
+  font-size: 15px; line-height: 22px; color: var(--text-muted);
+}
+blockquote strong{ color: var(--text); }
+
+pre{
+  margin: 0; background: var(--bg-alt); border-radius: 8px; padding: 16px;
+  font-size: 15px; line-height: 22px; color: var(--text);
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+ul.plain{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.plain li{ position: relative; padding-left: 16px; color: var(--text-muted); }
+ul.plain li::before{ content:""; position: absolute; left: 0; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--text-faint); }
+
+/* ── 등급 배지 ── */
+.g{
+  display: inline-block; padding: 0 6px; border-radius: 4px;
+  font-size: 12px; line-height: 20px; font-weight: 500; white-space: nowrap;
+}
+.g-a{ color: var(--blue-heavy); background: rgba(0,102,255,0.08); }
+.g-b{ color: var(--text-faint); background: var(--bg-alt); }
+.g-c{ color: #B36600; background: rgba(255,146,0,0.10); }
+
+.yes{ color: var(--green); font-weight: 600; }
+.no{ color: var(--text-faint); }
+.hot{ color: var(--red); font-weight: 600; }
+
+footer{ border-top: 1px solid var(--line); padding-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+
+@media (prefers-reduced-motion: reduce){ *{ transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">2026년 귀속 · 2027년 1~2월 신고</span>
+  <h1>연말정산 준비 보고서</h1>
+  <p class="meta">작성일 2026-08-06 · 모든 출처 확인일 2026-08-06</p>
+
+  <dl class="cond">
+    <dt>내 조건</dt>
+    <dd>맞벌이 부부 · 부양가족 없음 · 전세 거주 + 전세자금대출 상환 중 · 본인 세대주 · 부부 모두 무주택 · 주택청약종합저축 납입 중 · 병원비 지출 있음</dd>
+  </dl>
+
+  <div class="notice warn">
+    <p>이 보고서는 세무 자문이 아닙니다. 최종 판단은 국세청 국세상담센터(<strong>126</strong>) 또는 세무대리인 확인을 거치세요.</p>
+    <p>⚠ 표시 항목은 공식 출처로 확정하지 못한 것입니다. 그대로 실행하지 마세요.</p>
+  </div>
+
+  <nav class="toc">
+    <a href="#checklist">시기별 체크리스트</a>
+    <a href="#now">한눈에 보기</a>
+    <a href="#changes">달라진 점</a>
+    <a href="#deductions">놓치기 쉬운 공제</a>
+    <a href="#na">해당 없는 항목</a>
+    <a href="#risk">추징 리스크</a>
+    <a href="#unconfirmed">확인 필요</a>
+    <a href="#needed">알려주실 것</a>
+    <a href="#sources">출처</a>
+  </nav>
+</header>
+
+<!-- ═══════════ 시기별 체크리스트 (최상단) ═══════════ -->
+<section id="checklist">
+  <div class="sec-head">
+    <h2>시기별 액션 체크리스트</h2>
+    <p>지금은 8월입니다. 연말까지 손댈 수 있는 것과, 신고 때만 챙기면 되는 것이 다릅니다.</p>
+  </div>
+
+  <div class="progress">
+    <span id="progress-text">0 / 21 완료</span>
+    <button type="button" id="reset-btn">전체 해제</button>
+  </div>
+
+  <div class="timeline">
+
+    <div class="phase now">
+      <div class="phase-head">
+        <span class="phase-when">지금 ~ 2026.12.31</span>
+        <span class="phase-note">지금 진행 중 · 연말 넘기면 되돌릴 수 없는 구간</span>
+      </div>
+      <ul class="checks">
+        <li><label><input type="checkbox" data-ck="a1"><span><strong>무주택확인서</strong> 은행 제출 여부 확인 → 미제출 시 제출<span class="tag">최우선</span></span></label></li>
+        <li><label><input type="checkbox" data-ck="a2"><span><strong>본인 총급여</strong> 7천만원 이하 여부 확인 → 청약 공제 자격 판정</span></label></li>
+        <li><label><input type="checkbox" data-ck="a3"><span><strong>배우자 연간소득금액</strong> 100만원 초과 여부 확인 → 카드 합산 가부 판정</span></label></li>
+        <li><label><input type="checkbox" data-ck="a4"><span><strong>혼인신고 연도</strong> 확인 → 2024~2026년이면 결혼세액공제 신청. 미신고면 12/31 전 결정</span></label></li>
+        <li><label><input type="checkbox" data-ck="a5"><span><strong>청약 납입액</strong> 연 300만원 한도까지 채울지 결정</span></label></li>
+        <li><label><input type="checkbox" data-ck="a6"><span><strong>연금저축·IRP</strong> 부부 각자 900만원 한도 대비 추가 납입 검토</span></label></li>
+        <li><label><input type="checkbox" data-ck="a7"><span><strong>카드 사용 배분</strong> — 각자 총급여 25% 문턱 계산 후 넘긴 쪽으로 집중</span></label></li>
+        <li><label><input type="checkbox" data-ck="a8"><span><strong>의료비 결제 명의</strong> 정리 — 공제받을 사람 명의로 통일</span></label></li>
+        <li><label><input type="checkbox" data-ck="a9"><span><strong>전세대출 요건</strong> 점검 — 임차인·세대주·채무자 명의 일치, 차입 시기 3개월 요건</span></label></li>
+        <li><label><input type="checkbox" data-ck="a10"><span><strong>실손보험금</strong> 2026년 수령 내역 정리</span></label></li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-when">2026.10월 말 ~</span>
+        <span class="phase-note">실제 수치로 다시 계산해 보는 시점</span>
+      </div>
+      <ul class="checks">
+        <li><label><input type="checkbox" data-ck="b1"><span>홈택스 <strong>연말정산 미리보기</strong> 오픈 시 실제 수치로 재시뮬레이션</span></label></li>
+        <li><label><input type="checkbox" data-ck="b2"><span>국세청 과세표준 안내 페이지가 2026년 귀속으로 갱신됐는지 재확인</span></label></li>
+        <li><label><input type="checkbox" data-ck="b3"><span><strong>이 보고서 1회 갱신</strong></span></label></li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-when">2026.11 ~ 12월</span>
+        <span class="phase-note">사전 절차</span>
+      </div>
+      <ul class="checks">
+        <li><label><input type="checkbox" data-ck="c1"><span>간소화 자료 <strong>일괄제공 동의</strong> 등 사전 절차</span></label></li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head">
+        <span class="phase-when">2027.1 ~ 2월</span>
+        <span class="phase-note">신고 실행 구간</span>
+      </div>
+      <ul class="checks">
+        <li><label><input type="checkbox" data-ck="d1"><span>간소화 <strong>미수집 영수증</strong> 수동 수집 (안경·산후조리원·보청기·현금 결제분)</span></label></li>
+        <li><label><input type="checkbox" data-ck="d2"><span><strong>실손보험금 차감</strong> 후 의료비 최종 확정</span></label></li>
+        <li><label><input type="checkbox" data-ck="d3"><span><strong>난임시술비</strong> 별도 구분 입력 확인</span></label></li>
+        <li><label><input type="checkbox" data-ck="d4"><span>부부 간 의료비·카드 <strong>배분 최종 확정</strong> (중복 없는지 대조)</span></label></li>
+        <li><label><input type="checkbox" data-ck="d5"><span><strong>무주택확인서</strong> 최종 제출 기한 = <strong>2027년 2월 말</strong></span></label></li>
+        <li><label><input type="checkbox" data-ck="d6"><span>전세대출 <strong>주택자금상환 등 증명서</strong> 확보</span></label></li>
+        <li><label><input type="checkbox" data-ck="d7"><span>(이직 시) 전 직장 <strong>원천징수영수증</strong> 제출</span></label></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ 한눈에 보기 ═══════════ -->
+<section id="now">
+  <div class="sec-head">
+    <h2>한눈에 보기</h2>
+    <p>지금 당장 확인해야 할 네 가지입니다.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h4>무주택확인서 은행 제출 여부</h4>
+      <p>미제출이면 청약 납입해도 공제 <strong>0원</strong>. 은행 앱에서 확인 가능</p>
+    </div>
+    <div class="card">
+      <h4>실손보험금 수령 내역</h4>
+      <p>의료비에서 차감 안 하면 과다공제 추징 대상</p>
+    </div>
+    <div class="card">
+      <h4>본인 총급여 7천만원 이하 여부</h4>
+      <p>초과 시 청약 소득공제 자격 자체가 없음</p>
+    </div>
+    <div class="card">
+      <h4>혼인신고 연도</h4>
+      <p>2024~2026년이면 결혼세액공제 대상. <strong>2026년이 마지막 해</strong></p>
+    </div>
+  </div>
+
+  <div class="spot key">
+    <h4>연말(12/31)까지만 조정 가능</h4>
+    <ul class="plain">
+      <li>청약저축 납입액 (연 300만원 한도까지)</li>
+      <li>연금저축·IRP 납입 (합산 900만원 한도)</li>
+      <li>신용카드 명의·사용처 배분</li>
+      <li>의료비 지출 시점·결제 명의</li>
+    </ul>
+    <p class="meta">네 항목 모두 연말을 넘기면 2026년 귀속분에는 반영할 수 없습니다.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 달라진 점 ═══════════ -->
+<section id="changes">
+  <div class="sec-head">
+    <h2>작년 대비 달라진 점</h2>
+  </div>
+
+  <div class="stack">
+    <h3>실제로 바뀐 것 — 2건</h3>
+    <p>두 건 다 <strong>일몰(적용기한) 연장</strong>입니다. 연장이 없었다면 올해 납입·사용분부터 공제가 사라질 상황이었습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr><th>항목</th><th>2025년 귀속</th><th>2026년 귀속</th><th>근거</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>주택청약종합저축 소득공제</strong></td>
+            <td>2025.12.31 납입분까지</td>
+            <td><strong>2028.12.31 납입분까지 3년 연장</strong></td>
+            <td>법률 제21223호(2025.12.23 개정, 2026.1.1 시행), 조특법 §87② <span class="g g-a">A</span></td>
+          </tr>
+          <tr>
+            <td><strong>신용카드등 사용금액 소득공제</strong></td>
+            <td>2025.12.31 사용분까지</td>
+            <td><strong>2028.12.31 사용분까지 3년 연장</strong></td>
+            <td>법률 제21223호, 조특법 §126의2 <span class="g g-a">A</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">표는 좌우로 밀어서 볼 수 있습니다.</p>
+    <p>두 항목 모두 <strong>공제율·한도·소득요건은 그대로</strong>입니다. 바뀐 것은 제도의 존속 기한뿐입니다.</p>
+    <blockquote>신용카드는 자녀 수에 따른 한도 확대(1명 +50만원, 2명 이상 +100만원)도 신설됐으나 <strong>부양가족이 없어 해당 없음</strong>입니다.</blockquote>
+  </div>
+
+  <div class="stack">
+    <h3>확인 결과 &ldquo;변경 없음&rdquo; — 누락이 아닙니다</h3>
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr><th>항목</th><th>2026년 귀속 상태</th><th>등급</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>의료비 세액공제</td><td>공제율·한도·산후조리원 요건 모두 동일</td><td><span class="g g-a">A</span></td></tr>
+          <tr><td>주택임차차입금 원리금상환액 소득공제</td><td>40%, 합산 연 400만원 동일</td><td><span class="g g-a">A</span></td></tr>
+          <tr><td>연금계좌(연금저축·IRP) 세액공제</td><td>12%/15%, 600만원/900만원 동일</td><td><span class="g g-a">A</span></td></tr>
+          <tr><td>기부금 세액공제</td><td>1천만원 이하 15%, 초과 30% 동일</td><td><span class="g g-a">A</span></td></tr>
+          <tr><td>과세표준 구간·세율</td><td>8단계 6~45% 동일</td><td><span class="g g-a">A</span></td></tr>
+          <tr><td>근로소득세액공제</td><td>공제율·한도 산식 동일</td><td><span class="g g-a">A</span></td></tr>
+          <tr><td>결혼세액공제</td><td>2024~2026년 혼인신고분, 50만원 동일</td><td><span class="g g-b">B</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">표는 좌우로 밀어서 볼 수 있습니다.</p>
+    <blockquote><strong>과세표준 구간 참고</strong> — 국세청 안내 페이지가 아직 &ldquo;2023~2025년 귀속&rdquo; 표기입니다. 별도 개정 법안은 발견되지 않아 변경 없음으로 판단했으나, 10월 이후 국세청 페이지가 갱신되면 재확인하는 게 안전합니다.</blockquote>
+  </div>
+
+  <div class="spot risk">
+    <h3>⚠ 흔히 잘못 알려진 것 — 신용카드 소비증가분 특례</h3>
+    <p><strong>2026년 귀속에는 소비증가분 추가공제가 없습니다.</strong></p>
+    <p>블로그와 세무 콘텐츠 상당수가 &ldquo;전년 대비 5% 초과 증가분의 10%(100만원 한도)를 추가 공제받는다&rdquo;고 안내합니다. 그러나 조세특례제한법 §126의2 <strong>원문(2025.12.23 최종개정본)에는 2024년 사용분에 한정된 조항만 존재</strong>하고, 2025·2026년 사용분에 대응하는 조항이 없습니다.</p>
+    <p>혼동의 원인은 &ldquo;2024년 사용분&rdquo;을 &ldquo;2025년에 하는 연말정산&rdquo;이라는 표현과 뒤섞은 것으로 보입니다. 조문 원문을 우선했습니다. <span class="g g-a">A</span></p>
+  </div>
+</section>
+
+<!-- ═══════════ 놓치기 쉬운 공제 ═══════════ -->
+<section id="deductions">
+  <div class="sec-head">
+    <h2>놓치기 쉬운 공제 — 내 조건별</h2>
+  </div>
+
+  <!-- 청약 -->
+  <div class="stack">
+    <h3>청약 — 절차 하나로 공제가 0이 됩니다</h3>
+
+    <div class="spot key">
+      <h4>⭐ 무주택확인서 제출</h4>
+      <p><strong>납입만 하고 확인서를 안 내면 공제액은 0원입니다.</strong> 가장 흔한 누락입니다.</p>
+      <dl class="dl">
+        <div><dt>제출처</dt><dd>청약저축 가입 은행 (영업점 또는 인터넷·모바일뱅킹)</dd></div>
+        <div><dt>기한</dt><dd>공제받으려는 과세기간의 <strong>다음 해 2월 말</strong> → 2026년 귀속분은 <strong>2027년 2월 말</strong></dd></div>
+        <div><dt>서류</dt><dd>무주택확인서(기획재정부령 서식), 주민등록표 등본</dd></div>
+        <div><dt>지금 할 일</dt><dd>은행 앱에서 기제출 여부 확인. 미제출이면 바로 제출</dd></div>
+      </dl>
+    </div>
+
+    <h4>공제 내용과 자격</h4>
+    <dl class="dl">
+      <div><dt>대상</dt><dd>총급여 <strong>7,000만원 이하</strong> 무주택 세대주 또는 세대주의 배우자</dd></div>
+      <div><dt>공제</dt><dd>납입액(연 <strong>300만원</strong> 한도)의 <strong>40%</strong></dd></div>
+      <div><dt>합산 한도</dt><dd>주택임차차입금 원리금상환액 공제와 합쳐 <strong>연 400만원</strong></dd></div>
+      <div><dt>근거</dt><dd>조세특례제한법 §87② <span class="g g-a">A</span></dd></div>
+    </dl>
+    <blockquote>본인이 세대주이므로 자격 요건은 충족합니다. <strong>총급여 7천만원 초과 시 자격 자체가 없으므로</strong> 연말 급여 확정 후 재확인이 필요합니다.</blockquote>
+
+    <div class="card flag">
+      <h4>⚠ 5년 내 해지하면 추징</h4>
+      <p>가입일로부터 <strong>5년 이내 해지 시, 그동안 공제받은 납입액 누계액의 6%</strong>를 추징합니다. (조특법 §87④ <span class="g g-a">A</span>)</p>
+      <p>자금이 필요해 청약통장을 깨는 경우 이 비용을 계산에 넣어야 합니다.</p>
+    </div>
+  </div>
+
+  <!-- 전세 -->
+  <div class="stack">
+    <h3>전세 — 한도 숫자 3개를 구분하세요</h3>
+    <p><strong>가장 실수하기 쉬운 지점입니다.</strong> 청약과 전세대출 공제를 둘 다 받는 상황이라 세 숫자가 뒤섞이기 쉽습니다.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>숫자</th><th>무엇인가</th><th>나에게</th></tr></thead>
+        <tbody>
+          <tr><td><strong>연 300만원</strong></td><td>청약저축 <strong>납입액</strong> 한도 (이 금액의 40%를 공제)</td><td>해당</td></tr>
+          <tr><td><strong>연 400만원</strong></td><td><strong>청약저축 + 전세대출 원리금상환</strong> 공제액 <strong>합산 한도</strong></td><td><span class="yes">✅ 이게 내 한도</span></td></tr>
+          <tr><td><strong>연 800만원</strong></td><td>위 둘 + <strong>장기주택저당차입금 이자상환액</strong> 공제까지 합친 상위 한도</td><td><span class="no">❌ 주택담보대출이 없어 해당 없음</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">표는 좌우로 밀어서 볼 수 있습니다.</p>
+
+    <blockquote>
+      <strong>소득세법 §52④ 단서 원문</strong><br>
+      &ldquo;그 공제하는 금액과 「조세특례제한법」 제87조제2항에 따른 금액의 합계액이 연 400만원을 초과하는 경우 그 초과하는 금액은 없는 것으로 한다.&rdquo;<br><br>
+      <span class="g g-a">A</span> 800만원은 조특법 §87⑤의 별도 그룹 한도입니다.
+    </blockquote>
+
+    <h4>주택임차차입금 원리금상환액 소득공제 요건</h4>
+    <p>전세대출 <strong>이자만</strong> 신경 쓰고 원리금 상환액 공제 자체를 모르는 경우가 많습니다.</p>
+    <dl class="dl">
+      <div><dt>세대 요건</dt><dd>과세기간 종료일(12/31) 현재 <strong>무주택 세대의 세대주</strong> (세대주가 공제 안 받으면 세대원도 가능)</dd></div>
+      <div><dt>주택 규모</dt><dd>국민주택규모(전용 <strong>85㎡ 이하</strong>, 수도권 밖 읍·면은 100㎡ 이하). 주거용 오피스텔 포함</dd></div>
+      <div><dt>차입 시기</dt><dd><strong>금융기관</strong> 차입: 입주일과 전입일 중 빠른 날 <strong>전후 3개월 이내</strong><br><strong>개인</strong>(대부업 아닌) 차입: 전후 <strong>1개월 이내</strong></dd></div>
+      <div><dt>입금 경로</dt><dd>대출금이 <strong>임대인 계좌로 직접 입금</strong>될 것</dd></div>
+      <div><dt>공제</dt><dd>원리금 상환액의 <strong>40%</strong>, 청약 공제와 합산 <strong>연 400만원</strong></dd></div>
+      <div><dt>근거</dt><dd>소득세법 §52④, 시행령 §112 <span class="g g-a">A</span></dd></div>
+      <div><dt>필요 서류</dt><dd>주택자금상환 등 증명서(대출기관 발급), 주민등록표등본, 임대차계약증서 사본, 원리금 상환 증빙</dd></div>
+    </dl>
+
+    <div class="spot key">
+      <h4>지금 확인할 것</h4>
+      <ul class="plain">
+        <li>임대차계약서상 <strong>임차인 명의 = 세대주 = 대출 채무자</strong>가 모두 본인으로 일치하는가</li>
+        <li>대출 실행일이 입주일·전입일 기준 3개월 요건을 충족하는가</li>
+        <li>은행의 &lsquo;주택자금상환 등 증명서&rsquo;가 홈택스 간소화에 자동 반영되는가</li>
+      </ul>
+    </div>
+
+    <h4>세대주 요건의 차이</h4>
+    <ul class="plain">
+      <li><strong>청약 소득공제</strong> — 무주택 세대의 <strong>세대주 또는 세대주의 배우자</strong> (조특법 §87②)</li>
+      <li><strong>전세대출 공제</strong> — 원칙적으로 <strong>세대주</strong>. 세대주가 공제를 안 받을 때만 세대원 가능</li>
+    </ul>
+    <p>본인이 세대주이므로 <strong>두 공제 모두 본인 자격으로 신청 가능</strong>합니다. <span class="g g-a">A</span></p>
+
+    <div class="card flag">
+      <h4>⚠ &ldquo;전세대출 한도 상향&rdquo;은 사실이 아닙니다</h4>
+      <p>2025년 세제개편안의 실제 내용은 ① 별거 중인 무주택 부부 각자에게 신청을 허용(단, 부부 합산 한도는 여전히 400만원), ② 청약저축 <strong>납입한도</strong> 240만원→300만원 상향이었습니다. 소득공제 합산한도 400만원은 그대로입니다. <span class="g g-b">B</span></p>
+    </div>
+  </div>
+
+  <!-- 맞벌이 -->
+  <div class="stack">
+    <h3>맞벌이 — 가장 오해가 많은 구간</h3>
+
+    <h4>의료비를 누가 공제받는가</h4>
+    <p><strong>확정된 것 <span class="g g-a">A</span></strong> — 배우자에게 소득이 있어도, <strong>배우자를 위해 의료비를 지출한 근로자 본인이 공제받을 수 있습니다.</strong></p>
+    <blockquote>국세상담센터 Q&amp;A: &ldquo;맞벌이 부부인데, 남편이 배우자를 위해 의료비를 지출한 경우 누가 의료비 세액공제를 적용받을 수 있나요?&rdquo; → <strong>&ldquo;지출한 근로자 본인이 공제받을 수 있습니다.&rdquo;</strong></blockquote>
+    <p>&ldquo;맞벌이 배우자는 기본공제 대상이 아니니 의료비도 안 된다&rdquo;는 통념 때문에 아예 포기하는 경우가 있는데, <strong>그렇지 않습니다.</strong></p>
+
+    <div class="spot risk">
+      <h4>⚠ 그런데 &lsquo;지출자&rsquo;를 무엇으로 판정하는가 — 확인 필요</h4>
+      <p>이 부분은 <strong>공식 출처로 확정하지 못했습니다.</strong></p>
+      <ul class="plain">
+        <li>소득세법 §59의4는 &ldquo;기본공제대상자(나이·소득 제한 없음)를 위해 지급한 의료비&rdquo;라고만 규정</li>
+        <li>국세상담센터 문구는 <strong>&ldquo;근로자가 직접 부담하여 지출한 의료비&rdquo;</strong> — 여기까지가 공식 표현입니다</li>
+        <li><strong>카드 명의 기준인지, 가계 실질부담 기준인지 명시한 공식 조문·안내는 확인되지 않았습니다</strong></li>
+      </ul>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>입장</th><th>내용</th><th>등급</th></tr></thead>
+          <tbody>
+            <tr><td>실질부담설</td><td>부부는 경제공동체이므로 카드 명의와 무관하게 몰아서 공제 가능 (한국납세자연맹)</td><td><span class="g g-c">C</span></td></tr>
+            <tr><td>명의기준설</td><td>카드 명의자와 연말정산 신청자가 같아야 합산 공제 가능 (다수 언론·세무 매체)</td><td><span class="g g-c">C</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>실무적 결론</strong> — 어느 쪽이든 <strong>결제 카드 명의를 공제받을 사람과 일치시켜 두면 안전</strong>합니다. 연말까지 조정 가능한 항목입니다. 확실히 하려면 <strong>126 상담</strong>을 권합니다.</p>
+    </div>
+
+    <h4>왜 소득이 적은 쪽이 유리한가</h4>
+    <p>의료비는 <strong>공제 신청자 본인의 총급여 3% 초과분</strong>만 공제됩니다. 가구 합산이 아니라 <strong>개인별</strong> 계산입니다. → 총급여가 낮은 쪽이 지출자가 되면 3% 문턱 자체가 낮아져 초과분이 커집니다.</p>
+    <dl class="dl">
+      <div><dt>공제 대상</dt><dd>지출액 중 본인 총급여의 <strong>3% 초과분</strong></dd></div>
+      <div><dt>공제율</dt><dd>일반 <strong>15%</strong> / 미숙아·선천성이상아 <strong>20%</strong> / 난임시술 <strong>30%</strong></dd></div>
+      <div><dt>한도</dt><dd>일반 의료비 연 <strong>700만원</strong>. 본인·65세 이상·장애인·6세 이하, 난임시술비는 <strong>한도 없음</strong></dd></div>
+      <div><dt>근거</dt><dd>소득세법 §59의4② <span class="g g-a">A</span></dd></div>
+    </dl>
+
+    <h4>신용카드 — 배우자 소득이 100만원 넘으면 합산 불가</h4>
+    <dl class="dl">
+      <div><dt>문턱</dt><dd>본인 총급여의 <strong>25% 초과분</strong>부터 공제 대상</dd></div>
+      <div><dt>공제율</dt><dd>신용카드 15% / 직불·선불·현금영수증 30% / 전통시장·대중교통 40% / 도서·신문·공연 30%(총급여 7천만원 이하)</dd></div>
+      <div><dt>기본한도</dt><dd>총급여 7천만원 이하 <strong>300만원</strong>, 초과 <strong>250만원</strong></dd></div>
+      <div><dt>합산 제한</dt><dd>배우자 사용액은 배우자의 <strong>연간소득금액 100만원 이하</strong>(근로소득만 있으면 총급여 500만원 이하)일 때만 본인에게 합산 가능</dd></div>
+      <div><dt>근거</dt><dd>조세특례제한법 §126의2 <span class="g g-a">A</span></dd></div>
+    </dl>
+    <p><strong>맞벌이라면 배우자 소득이 100만원을 넘을 가능성이 높고, 그렇다면 각자 자기 카드 사용분만 각자 공제합니다.</strong> 생활비 카드를 한쪽에 몰아 신고하면 과다공제 추징 대상입니다.</p>
+    <p><strong>연말까지 할 수 있는 것</strong> — 부부 각자 총급여의 25% 문턱을 넘는지 계산해, 문턱을 이미 넘은 쪽 카드로 나머지 지출을 몰면 공제 대상 금액이 늘어납니다.</p>
+
+    <div class="card flag">
+      <h4>⚠ 중복공제 금지</h4>
+      <p>동일 지출을 부부 양쪽에서 각각 신고할 수 없습니다. 국세청은 사후 검증으로 추징 및 가산세를 부과합니다. <span class="g g-a">A</span></p>
+    </div>
+  </div>
+
+  <!-- 의료비 -->
+  <div class="stack">
+    <h3>의료비 — 간소화에 안 잡히는 것들</h3>
+
+    <h4>영수증을 직접 받아야 하는 항목</h4>
+    <p>홈택스 간소화서비스에 <strong>자동으로 안 뜨는</strong> 의료비가 있습니다. 법령상 의무제출 대상이 아니기 때문입니다.</p>
+    <dl class="dl">
+      <div><dt>안경·콘택트렌즈</dt><dd>시력보정용, 1인당 연 <strong>50만원</strong> 이내 (소득세법 시행령 §118의5)</dd></div>
+      <div><dt>보청기·장애인보장구</dt><dd>한도 없음</dd></div>
+      <div><dt>산후조리원</dt><dd>출산 1회당 <strong>200만원</strong> (소득·나이 제한 없음)</dd></div>
+      <div><dt>일부 의원·한방</dt><dd>및 <strong>현금 결제분</strong></dd></div>
+    </dl>
+    <p><strong>할 일</strong> — 홈택스 간소화 &lsquo;의료비&rsquo; 항목을 실제 지출 내역과 대조 → 누락분은 해당 기관에서 영수증 직접 수령. 홈택스 <strong>&lsquo;조회되지 않는 의료비 신고센터&rsquo;</strong>로도 신고 가능합니다. <span class="g g-a">A</span></p>
+
+    <div class="spot risk">
+      <h4>⭐ 실손보험금은 반드시 차감 — 추징 리스크</h4>
+      <p><strong>2019년 귀속분부터 실손의료보험금으로 보전받은 금액은 의료비에서 제외해야 합니다.</strong></p>
+      <pre>공제대상 의료비 = 지출 의료비 − 실손보험금 수령액</pre>
+      <ul class="plain">
+        <li><strong>차감 기준은 수령 연도가 아니라 지출 연도</strong>입니다</li>
+        <li><strong>보험사가 국세청에 지급 내역을 통보</strong>하므로, 본인이 차감하지 않으면 사후 검증에서 적발됩니다</li>
+        <li>지출연도와 수령연도가 다른 경우, 수령연도의 종합소득세 확정신고 기한까지 종전 연도분을 <strong>수정신고하면 가산세 면제</strong></li>
+        <li>수령 내역은 홈택스 간소화 자료에서 확인 가능</li>
+      </ul>
+      <p class="meta">소득세법 §59의4② <span class="g g-a">A</span></p>
+    </div>
+
+    <h4>난임시술비는 30% — 별도 구분 입력 필요</h4>
+    <p>난임시술비는 일반 의료비(15%)의 <strong>두 배인 30%</strong> 공제율이며 한도가 없습니다. 다만 간소화 자료에서 일반 의료비로 뭉뚱그려지는 경우가 있어, <strong>공제신청서에서 &lsquo;난임시술비&rsquo; 항목으로 구분 입력했는지</strong> 확인해야 합니다. (소득세법 §59의4②4호 <span class="g g-a">A</span>)</p>
+  </div>
+
+  <!-- 공통 -->
+  <div class="stack">
+    <h3>공통</h3>
+
+    <h4>연금저축·IRP — 12/31까지만</h4>
+    <dl class="dl">
+      <div><dt>공제율</dt><dd>총급여 <strong>5,500만원 이하</strong>(종합소득금액 4,500만원 이하) <strong>15%</strong>, 초과 <strong>12%</strong></dd></div>
+      <div><dt>한도</dt><dd>연금저축 단독 <strong>600만원</strong>, IRP 포함 합산 <strong>900만원</strong></dd></div>
+      <div><dt>기한</dt><dd><strong>2026.12.31까지 납입분</strong>만 2026년 귀속 반영</dd></div>
+      <div><dt>근거</dt><dd>소득세법 §59의3 <span class="g g-a">A</span></dd></div>
+    </dl>
+    <p>한도까지 못 채운 채 연말을 맞는 경우가 흔합니다. <strong>부부 각자 한도가 있으므로</strong> 둘 다 확인하세요.</p>
+
+    <h4>결혼세액공제 — 2026년이 마지막 해</h4>
+    <dl class="dl">
+      <div><dt>대상</dt><dd><strong>2024.1.1 ~ 2026.12.31</strong> 사이 혼인신고를 한 거주자</dd></div>
+      <div><dt>공제</dt><dd>생애 <strong>1회</strong>, 혼인신고일이 속한 과세기간에 <strong>50만원</strong></dd></div>
+      <div><dt>부부</dt><dd><strong>각자 신청 가능</strong> → 합산 최대 <strong>100만원</strong></dd></div>
+      <div><dt>제외</dt><dd>사실혼 불인정</dd></div>
+      <div><dt>근거</dt><dd>조세특례제한법 §92 <span class="g g-b">B</span> (기재부 공식 자료)</dd></div>
+    </dl>
+    <blockquote><strong>혼인신고 연도를 확인하세요.</strong> 2024~2026년 사이라면 해당하고, 아직 안 했다면 <strong>2026.12.31이 마지막 기회</strong>입니다. 2027년 이후 혼인신고분에 대한 연장 여부는 정해지지 않았습니다.</blockquote>
+
+    <h4>기부금 이월공제 10년</h4>
+    <p>한도 초과로 공제 못 받은 특례·일반기부금은 <strong>다음 과세기간부터 10년 이내</strong> 이월 공제 가능합니다. 정치자금·고향사랑·우리사주조합 기부금은 이월 불가. 간소화에 종교단체 등 일부 기부처가 미수집되므로 실제 내역과 대조가 필요합니다. (소득세법 §61 <span class="g g-b">B</span>)</p>
+
+    <h4>이직했다면 전 직장 원천징수영수증</h4>
+    <p>과세기간 중 이직한 경우, 새 근무지에 <strong>종전 근무지 근로소득을 포함</strong>해 신고서를 제출하면 원천징수의무자가 합산 정산합니다.</p>
+    <blockquote>소득세법 §138① — &ldquo;해당 과세기간 중도에 퇴직하고 새로운 근무지에 취직한 근로소득자가 종전 근무지에서… 받은 근로소득을 포함하여 근로소득자 소득·세액 공제신고서를 제출하는 경우 원천징수의무자는… 더한 금액에 대하여 소득세를 원천징수한다.&rdquo; <span class="g g-a">A</span></blockquote>
+    <p>미제출 시 다음 해 5월 종합소득세 신고로 정정해야 하며, 국세청 지급명세서 대사에서 적발될 수 있습니다.</p>
+
+    <div class="spot key">
+      <h4>경정청구 — 과거 5년 소급 환급</h4>
+      <p>법정신고기한이 지난 후 <strong>5년 이내</strong>에 경정청구로 과거 놓친 공제를 환급받을 수 있습니다. (국세기본법 §45의2① <span class="g g-a">A</span>)</p>
+      <p><strong>과거에 무주택확인서를 안 내서 청약 공제를 못 받은 해가 있다면 지금 소급 신청 가능합니다.</strong> 홈택스에서 과거 5년 연말정산 결과를 점검해 보세요.</p>
+      <p class="meta">⚠ 근로소득자의 기산일을 &ldquo;다음 해 6월 1일&rdquo;로 보는 것은 국세기본법 §45의2와 소득세법 §73(확정신고 예외)의 결합 해석입니다. 날짜를 명시한 공식 문구는 확보하지 못했습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 해당 없는 항목 ═══════════ -->
+<section id="na">
+  <div class="sec-head">
+    <h2>해당 없는 항목</h2>
+    <p>확인했고, 내 조건에서는 해당하지 않습니다.</p>
+  </div>
+  <dl class="dl">
+    <div><dt>월세액 세액공제</dt><dd>전세 거주로 월세 지급 사실 없음 (조특법 §95의2)</dd></div>
+    <div><dt>자녀세액공제, 교육비, 부양가족 기본공제</dt><dd>부양가족 없음</dd></div>
+    <div><dt>신용카드 자녀수별 한도 확대</dt><dd>부양가족 없음</dd></div>
+    <div><dt>장기주택저당차입금 이자상환액 공제</dt><dd>주택 미소유</dd></div>
+  </dl>
+</section>
+
+<!-- ═══════════ 리스크 ═══════════ -->
+<section id="risk">
+  <div class="sec-head">
+    <h2>리스크 — 추징 가능 항목</h2>
+    <p>공제를 더 받는 것보다 이쪽이 손실이 큽니다.</p>
+  </div>
+  <div class="cards">
+    <div class="card flag">
+      <h4><span class="hot">실손보험금 미차감</span></h4>
+      <p>보험사가 국세청에 통보 → 사후검증 적발. 과다공제 추징 + 가산세</p>
+      <p class="meta">대응 — 신고 전 홈택스에서 수령 내역 대조</p>
+    </div>
+    <div class="card flag">
+      <h4><span class="hot">부부 중복공제</span></h4>
+      <p>동일 지출을 양쪽에서 신고 / 소득 있는 배우자 카드 합산</p>
+      <p class="meta">대응 — 신고 전 부부 자료 대조</p>
+    </div>
+    <div class="card flag">
+      <h4><span class="hot">청약 5년 내 해지</span></h4>
+      <p>공제받은 납입액 누계의 6% 추징</p>
+      <p class="meta">대응 — 해지 전 가입일 확인</p>
+    </div>
+    <div class="card flag">
+      <h4><span class="hot">전세대출 요건 미충족</span></h4>
+      <p>차입 시기·명의 불일치 시 공제 부인</p>
+      <p class="meta">대응 — 사전에 계약서·대출 실행일 확인</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 확인 필요 ═══════════ -->
+<section id="unconfirmed">
+  <div class="sec-head">
+    <h2>⚠ 확인 필요 / 확정 아님</h2>
+  </div>
+
+  <div class="stack">
+    <h3>공식 출처로 확정하지 못한 것</h3>
+    <dl class="dl">
+      <div><dt>맞벌이 의료비 &lsquo;지출자&rsquo; 판정 기준</dt><dd>배우자 위해 지출한 의료비를 본인이 공제받는 것은 <strong>확정 <span class="g g-a">A</span></strong>. 그러나 카드 명의 기준인지 실질부담 기준인지는 <strong>확인 불가</strong>. 국세청 문구는 &ldquo;직접 부담하여 지출&rdquo;뿐 → <strong>126 상담 권장</strong></dd></div>
+      <div><dt>결혼세액공제 조문</dt><dd>law.go.kr 조문 원문 직접 확인 실패(SPA 렌더링). 기재부 공식 자료(<span class="g g-b">B</span>등급)로 교차확인</dd></div>
+      <div><dt>경정청구 기산일</dt><dd>5년 원칙은 확정 <span class="g g-a">A</span>. &ldquo;다음 해 6월 1일&rdquo; 기산은 조문 결합 해석</dd></div>
+      <div><dt>과세표준 구간</dt><dd>국세청 페이지가 &ldquo;2023~2025년 귀속&rdquo; 표기. 개정 법안 미발견으로 변경 없음 판단. 10월 이후 재확인</dd></div>
+    </dl>
+  </div>
+
+  <div class="stack">
+    <h3>2027년 귀속 이후 예고 — 올해 계획에 반영하지 마세요</h3>
+    <p>아래는 2026년 중 발표·보도된 사항으로, 통상 <strong>2027년 귀속부터</strong> 적용됩니다. 국회 심의 전이라 확정이 아닙니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>항목</th><th>내용</th><th>등급</th></tr></thead>
+        <tbody>
+          <tr><td>청약 소득공제 상시화</td><td>일몰 규정 자체를 폐지하는 방안 검토 (2026.7 보도)</td><td><span class="g g-c">C</span></td></tr>
+          <tr><td>대중교통 40% 우대공제율 폐지</td><td>2026 세제개편안에 일반 공제율 전환 포함 (2026.8 보도)</td><td><span class="g g-c">C</span></td></tr>
+          <tr><td>결혼·출산 세액공제 전환</td><td>세액공제 대신 재정지원으로 전환 논의</td><td><span class="g g-c">C</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">표는 좌우로 밀어서 볼 수 있습니다.</p>
+    <p><strong>세 건 모두 언론 보도만 확인됐고 공식 법령·기재부 보도자료로 재확인되지 않았습니다.</strong></p>
+  </div>
+</section>
+
+<!-- ═══════════ 알려주실 것 ═══════════ -->
+<section id="needed">
+  <div class="sec-head">
+    <h2>알려주시면 확정할 수 있는 것</h2>
+    <p>지금은 조건부로 서술한 항목들입니다.</p>
+  </div>
+  <dl class="dl">
+    <div><dt>본인 2026년 총급여</dt><dd>청약 소득공제 자격(7천만원 상한), 카드 기본한도(300/250만원), 연금 공제율(15%/12%)</dd></div>
+    <div><dt>배우자 연간소득금액 100만원 초과 여부</dt><dd>카드 사용액 합산 가부</dd></div>
+    <div><dt>부부 각자 총급여</dt><dd>의료비 3% 문턱 비교 → 누구에게 몰지</dd></div>
+    <div><dt>혼인신고 연도</dt><dd>결혼세액공제 해당 여부</dd></div>
+    <div><dt>전세대출 실행일 / 입주일 / 전입일</dt><dd>차입 시기 3개월 요건 충족 여부</dd></div>
+    <div><dt>임차 주택 전용면적</dt><dd>국민주택규모 85㎡ 요건</dd></div>
+    <div><dt>청약통장 가입일</dt><dd>5년 내 해지 추징 기산</dd></div>
+    <div><dt>실손보험 가입·수령 내역</dt><dd>의료비 차감액</dd></div>
+  </dl>
+</section>
+
+<!-- ═══════════ 출처 (최하단) ═══════════ -->
+<section id="sources">
+  <div class="sec-head">
+    <h2>출처</h2>
+    <p>전체 목록은 <a href="./sources.md">sources.md</a>를 참조하세요.</p>
+  </div>
+
+  <dl class="dl">
+    <div><dt><span class="g g-a">A</span> 등급</dt><dd>국가법령정보센터 조문 원문, 국세청·홈택스·국세상담센터</dd></div>
+    <div><dt><span class="g g-b">B</span> 등급</dt><dd>기획재정부·국세청 보도자료</dd></div>
+    <div><dt><span class="g g-c">C</span> 등급</dt><dd>언론·블로그. 단독 근거로 사용하지 않음 — 본문에서는 &ldquo;예고&rdquo; 항목에만 등장</dd></div>
+  </dl>
+
+  <footer>
+    <p><strong>조사 방법</strong> — 개정사항 조사 13항목, 조건별 공제 조사 17항목, 상충 항목 재확인 6건. C등급 단독 근거 항목은 A/B로 재확인했고, 재확인 실패분은 &lsquo;확인 필요&rsquo;로 격리했습니다. 본문 수치는 모두 출처에서 확인된 값이며, 확인되지 않은 값은 채우지 않았습니다.</p>
+    <p class="meta">2026년 귀속 연말정산 준비 보고서 · 작성일 2026-08-06 · 세무 자문이 아닙니다. 국세상담센터 126 또는 세무대리인 확인을 거치세요.</p>
+  </footer>
+</section>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'tax2026-checklist';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.checks input[type="checkbox"]'));
+  var text = document.getElementById('progress-text');
+  var reset = document.getElementById('reset-btn');
+  var saved = {};
+
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+  function render() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    text.textContent = done + ' / ' + boxes.length + ' 완료';
+  }
+
+  function persist() {
+    var state = {};
+    boxes.forEach(function (b) { if (b.checked) { state[b.dataset.ck] = 1; } });
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* 저장 불가 시 무시 */ }
+  }
+
+  boxes.forEach(function (b) {
+    if (saved[b.dataset.ck]) { b.checked = true; }
+    b.addEventListener('change', function () { persist(); render(); });
+  });
+
+  reset.addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    persist();
+    render();
+  });
+
+  render();
+})();
+</script>
