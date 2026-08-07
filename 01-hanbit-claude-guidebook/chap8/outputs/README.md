@@ -9,7 +9,7 @@
 | 파일 | 무엇 | 8장 위치 |
 |------|------|---------|
 | [`plan.md`](./plan.md) | 계획서. 목표·산출물·만드는 순서·내가 직접 해야 하는 일·가정 | 8.2 |
-| [`업무일지.md`](./업무일지.md) | 일지 형식 예시 (**지어낸 내용**) | 8.3 |
+| [`업무일지.md`](./업무일지.md) | 저자의 실제 일지를 **익명화**한 것. 형태는 실제 그대로 | 8.3 |
 | [`scripts/log-session.ps1`](./scripts/log-session.ps1) | 세션 종료 훅 스크립트 | 8.3 |
 | [`scripts/weekly-summary.mjs`](./scripts/weekly-summary.mjs) | 주간 요약 집계·디스코드 발송 | 8.4 |
 | [`workflows/weekly-summary.yml`](./workflows/weekly-summary.yml) | 금요일 자동 실행 설정 | 8.4 |
