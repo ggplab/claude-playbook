@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>주간 업무 요약 — 로컬 대시보드 (프로토타입)</title>
+
+<!-- 디자인 기준서 §2.1 — chap6/index.html과 같은 방식으로 원티드 산스를 불러온다 -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   토큰 — claude-playbook/01-hanbit-claude-guidebook/chap6/DESIGN.md
+   원티드 디자인시스템(Montage) light 모드. 여기 없는 값은 쓰지 않는다.
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  /* §1.1 · §1.2 색 */
+  --bg:            #FFFFFF;
+  --bg-alt:        #F7F7F8;
+  --label-strong:  #000000;
+  --label-normal:  #171719;
+  --label-neutral: rgba(46, 47, 51, .88);
+  --label-alt:     rgba(55, 56, 60, .61);
+  --line:          #E1E2E4;
+  --primary:       #0066FF;
+  --primary-strong:#005EEB;
+
+  /* §1.3 상태색 — 가짜 데이터 표시에 '주의(주황)'만 쓴다 */
+  --cautionary:    #FF9200;
+
+  /* §2.1 서체 */
+  --sans: 'Wanted Sans Variable', 'Wanted Sans', 'Pretendard',
+          "Apple SD Gothic Neo", system-ui, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* §3.1 간격 — 4의 배수만 */
+  --s4: 4px;   --s8: 8px;   --s12: 12px; --s16: 16px;
+  --s20: 20px; --s24: 24px; --s32: 32px; --s40: 40px;
+  --s48: 48px; --s56: 56px; --s64: 64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--label-normal);
+  font-family: var(--sans);
+  /* §2.2 본문 16/24 400 */
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* §3.2 최대 너비 제한 · 데스크톱 좌우 40~48px · 모바일 16~20px */
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--s40) var(--s48) var(--s64);
+}
+@media (max-width: 720px) {
+  .page { padding: var(--s24) var(--s20) var(--s48); }
+}
+
+/* ── 글자 위계 (§2.2) — 굵기는 400/500/600~700 세 단만 ───────────── */
+.title1  { font-size: 32px; line-height: 44px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+.title3  { font-size: 24px; line-height: 32px; font-weight: 700; margin: 0; }
+.heading2{ font-size: 20px; line-height: 28px; font-weight: 600; margin: 0; }
+.body2   { font-size: 15px; line-height: 22px; font-weight: 400; }
+.label1  { font-size: 14px; line-height: 20px; font-weight: 500; }
+.caption { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--label-alt); }
+
+.muted { color: var(--label-neutral); }
+.dim   { color: var(--label-alt); }
+
+/* ── 가짜 데이터 안내 (§1.3 주의색 + 글자 라벨, 색만으로 알리지 않는다) ── */
+.mock-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s12);
+  padding: var(--s16) var(--s20);
+  margin-bottom: var(--s32);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--cautionary);
+  border-radius: 8px;
+}
+.mock-banner__mark {
+  flex: 0 0 auto;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--cautionary);
+}
+.mock-banner__body { display: flex; flex-direction: column; gap: var(--s4); }
+
+.mock-chip {
+  display: inline-block;
+  padding: var(--s4) var(--s8);
+  border: 1px solid var(--cautionary);
+  border-radius: 4px;
+  color: var(--cautionary);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* ── 머리말 ─────────────────────────────────────────────────────── */
+.masthead { display: flex; flex-direction: column; gap: var(--s8); margin-bottom: var(--s32); }
+.masthead__row { display: flex; align-items: center; gap: var(--s12); flex-wrap: wrap; }
+
+/* ── 요약 숫자 (표가 아니라 낱개 값이므로 차트를 쓰지 않는다) ────── */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s16);
+  margin-bottom: var(--s48);
+}
+@media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+
+.kpi {
+  padding: var(--s20);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+.kpi__label { color: var(--label-neutral); }
+.kpi__value {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+section { margin-bottom: var(--s48); }
+.section-head { display: flex; align-items: baseline; gap: var(--s12); margin-bottom: var(--s20); }
+
+/* ── 프로젝트별 시간: 크기 비교 → 가로 막대, 한 가지 색(§4) ─────── */
+.bars { display: flex; flex-direction: column; gap: var(--s8); }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 120px;
+  align-items: center;
+  gap: var(--s16);
+  padding: var(--s8) var(--s12);
+  border-radius: 6px;
+  transition: background .12s ease;
+}
+.bar-row:hover, .bar-row:focus-visible { background: var(--bg-alt); outline: none; }
+
+@media (max-width: 720px) {
+  .bar-row { grid-template-columns: 1fr 96px; gap: var(--s8) var(--s12); }
+  .bar-row__track { grid-column: 1 / -1; }
+}
+
+.bar-row__name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bar-row__track {
+  height: 12px;
+  background: var(--bg-alt);
+  border-radius: 0 4px 4px 0;
+}
+.bar-row__fill {
+  height: 100%;
+  background: var(--primary);
+  /* 축에 붙는 쪽은 각지게, 데이터 끝만 4px 둥글게 */
+  border-radius: 0 4px 4px 0;
+  min-width: 4px;
+}
+
+/* 숫자는 우측 정렬 (§3.2) */
+.bar-row__value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--label-neutral);
+}
+.bar-row__sessions { text-align: right; }
+
+/* ── 날짜별 기록 ────────────────────────────────────────────────── */
+.day { margin-bottom: var(--s32); }
+.day__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s12);
+  padding-bottom: var(--s8);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s16);
+}
+
+.sessions { display: flex; flex-direction: column; gap: var(--s12); }
+
+.session {
+  padding: var(--s20);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s12);
+}
+
+.session__top {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s12);
+  flex-wrap: wrap;
+}
+.session__time {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--label-neutral);
+  font-variant-numeric: tabular-nums;
+}
+.session__folder { font-weight: 600; }
+.session__dur { margin-left: auto; color: var(--label-alt); font-variant-numeric: tabular-nums; }
+@media (max-width: 720px) { .session__dur { margin-left: 0; } }
+
+/* 새로 들어가는 항목 — 어떤 일을 했는지 */
+.session__what {
+  font-size: 16px;
+  line-height: 24px;
+  padding-left: var(--s12);
+  border-left: 2px solid var(--primary);
+}
+
+.files { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s8); }
+.file {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 16px;
+  padding: var(--s4) var(--s8);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--label-neutral);
+}
+.file--none { font-family: var(--sans); color: var(--label-alt); border-style: dashed; }
+
+/* ── 각주 ───────────────────────────────────────────────────────── */
+.notes {
+  padding-top: var(--s24);
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s8);
+}
+.notes h2 { font-size: 14px; line-height: 20px; font-weight: 600; margin: 0 0 var(--s4); }
+.notes p { margin: 0; }
+.notes code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px var(--s4);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="mock-banner" role="note">
+    <span class="mock-banner__mark">주의</span>
+    <div class="mock-banner__body">
+      <div><strong>이 화면의 숫자·프로젝트·요약은 전부 가짜 데이터입니다.</strong></div>
+      <div class="body2 muted">
+        실제 업무일지에는 아직 세션이 2건뿐이라, 화면 모양을 보기 위해 12건을 지어냈습니다.
+        실제 기록으로 바꾸는 방법은 맨 아래에 적어 두었습니다.
+      </div>
+    </div>
+  </div>
+
+  <header class="masthead">
+    <div class="masthead__row">
+      <h1 class="title1">주간 업무 요약</h1>
+      <span class="mock-chip">가짜 데이터</span>
+    </div>
+    <div class="label1 muted" id="period"></div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <div class="section-head">
+      <h2 class="title3">프로젝트별 시간</h2>
+      <span class="caption">긴 순서</span>
+    </div>
+    <div class="bars" id="bars"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 class="title3">날짜별 기록</h2>
+      <span class="caption">이른 시각 순</span>
+    </div>
+    <div id="days"></div>
+  </section>
+
+  <footer class="notes">
+    <div>
+      <h2>이 화면에 대해</h2>
+      <p class="body2 muted">
+        디자인은 <code>chap6/DESIGN.md</code>(원티드 디자인시스템)를 따릅니다.
+        강조색은 파랑 <code>#0066FF</code> 하나이고, 주황은 가짜 데이터 표시에만 씁니다.
+        기준서 §5에 따라 라이트 모드만 지원합니다.
+      </p>
+    </div>
+    <div>
+      <h2>실제 기록으로 바꾸려면</h2>
+      <p class="body2 muted">
+        지금은 아래 <code>MOCK</code> 배열에 데이터가 박혀 있습니다.
+        브라우저가 <code>file://</code>에서 로컬 파일을 직접 읽지 못해, 실제로 쓰려면
+        <code>업무일지.md</code>를 읽어 이 배열만 다시 써 주는 작은 스크립트가 하나 필요합니다.
+      </p>
+    </div>
+    <div>
+      <h2>“한 일” 항목에 대해</h2>
+      <p class="body2 muted">
+        지금 <code>업무일지.md</code>에는 파일 이름만 있고 한 일 요약은 없습니다. 이 화면의 요약문은 지어낸 것입니다.
+        다만 Claude Code가 세션마다 만들어 두는 제목(<code>ai-title</code>)이 대화 기록에 이미 들어 있어서,
+        훅에서 그 값을 꺼내 한 칸 더 기록하면 진짜 요약을 채울 수 있습니다.
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   가짜 데이터 — 화면 모양을 보기 위한 것. 실제 기록이 아니다.
+   실제 업무일지.md에는 '한 일(what)' 칸이 아직 없다.
+   ═══════════════════════════════════════════════════════════════════ */
+const MOCK = [
+  { date: '2026-08-03', start: '09:12', end: '11:40', folder: 'claude-book-hanbit-v2',
+    what: '8장 초고 구조를 잡고 들어갈 그림 목록을 정리했다.',
+    files: ['ch08_본문.md', '그림목록.md'] },
+  { date: '2026-08-03', start: '13:05', end: '14:22', folder: 'tax-research',
+    what: '임대소득 과세 기준 자료를 모아 표로 옮겼다.',
+    files: ['report.html', 'print-style.css'] },
+  { date: '2026-08-03', start: '15:00', end: '17:30', folder: 'claude-playbook',
+    what: '6장 대시보드 디자인 기준서 초안을 썼다. 원티드 토큰을 출처와 함께 정리.',
+    files: ['DESIGN.md', 'PRD.md'] },
+
+  { date: '2026-08-04', start: '10:00', end: '12:15', folder: 'claude-book-hanbit-v2',
+    what: '6장 디자인 시스템 절을 다시 썼다. 예시를 실제 화면 캡처로 교체.',
+    files: ['6장_본문.md', '그림6-2.html'] },
+  { date: '2026-08-04', start: '14:30', end: '16:05', folder: 'live-subs',
+    what: '자막 싱크가 밀리는 원인을 찾아 파서를 고쳤다. 회귀 테스트 추가.',
+    files: ['parser.ts', 'sync.test.ts'] },
+
+  { date: '2026-08-05', start: '09:30', end: '10:10', folder: 'tax-research',
+    what: '전년도 신고 자료와 항목을 대조했다.',
+    files: ['cards.html'] },
+  { date: '2026-08-05', start: '11:00', end: '13:20', folder: 'claude-playbook',
+    what: '6장 인덱스 화면에 원티드 토큰을 적용하고 기준서와 어긋난 값을 맞췄다.',
+    files: ['index.html', 'DESIGN.md'] },
+  { date: '2026-08-05', start: '23:40', end: '00:25', folder: 'live-subs',
+    what: '빌드가 깨져서 급하게 잡았다. 의존성 버전 고정.',
+    files: ['vite.config.ts'] },
+
+  { date: '2026-08-06', start: '10:15', end: '12:40', folder: 'claude-book-hanbit-v2',
+    what: '7장 CLI 그림 4개를 다시 그렸다.',
+    files: ['그림7-1.html', '그림7-5.html', '그림7-8.html', '그림7-9.html'] },
+  { date: '2026-08-06', start: '14:00', end: '15:30', folder: 'claude-playbook',
+    what: '발표자료 슬라이드 순서를 정리했다.',
+    files: ['presentation.html'] },
+
+  { date: '2026-08-07', start: '11:09', end: '15:41', folder: 'claude-book-hanbit-v2',
+    what: '8장 업무일지 자동화 실습 원고를 정리하고 붙여넣기용 표를 만들었다.',
+    files: ['WORKLOG_FORMAT.md', 'README.md', '_표_붙여넣기용.html'] },
+  { date: '2026-08-07', start: '12:12', end: '15:40', folder: 'work-log',
+    what: '세션 종료 훅과 주간 요약 자동화를 만들고 발송까지 검증했다.',
+    files: ['plan.md', 'log-session.ps1', 'weekly-summary.mjs', 'weekly-summary.yml'] },
+];
+
+const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
+
+const toMinutes = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+
+// 자정을 넘긴 세션도 음수가 되지 않게 한다.
+const durationOf = (s) => {
+  const d = toMinutes(s.end) - toMinutes(s.start);
+  return d < 0 ? d + 1440 : d;
+};
+
+function formatDuration(min) {
+  const h = Math.floor(min / 60), m = min % 60;
+  if (h === 0) return `${m}분`;
+  if (m === 0) return `${h}시간`;
+  return `${h}시간 ${m}분`;
+}
+
+function dayHeading(key) {
+  const [y, m, d] = key.split('-').map(Number);
+  return `${m}월 ${d}일 (${WEEKDAYS[new Date(y, m - 1, d).getDay()]})`;
+}
+
+const el = (tag, cls, text) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+};
+
+/* ── 기간 ────────────────────────────────────────────────────────── */
+const dates = [...new Set(MOCK.map((s) => s.date))].sort();
+document.getElementById('period').textContent =
+  `${dayHeading(dates[0])} ~ ${dayHeading(dates.at(-1))}`;
+
+/* ── 요약 숫자 ───────────────────────────────────────────────────── */
+const totalMinutes = MOCK.reduce((sum, s) => sum + durationOf(s), 0);
+const folders = [...new Set(MOCK.map((s) => s.folder))];
+const uniqueFiles = new Set(MOCK.flatMap((s) => s.files));
+
+const kpis = [
+  ['세션', `${MOCK.length}건`],
+  ['작업 시간', formatDuration(totalMinutes)],
+  ['프로젝트', `${folders.length}개`],
+  ['고친 파일', `${uniqueFiles.size}개`],
+];
+
+const kpiBox = document.getElementById('kpis');
+for (const [label, value] of kpis) {
+  const card = el('div', 'kpi');
+  card.append(el('div', 'kpi__label label1', label), el('div', 'kpi__value', value));
+  kpiBox.append(card);
+}
+
+/* ── 프로젝트별 시간 ─────────────────────────────────────────────── */
+const byFolder = new Map();
+for (const s of MOCK) {
+  const cur = byFolder.get(s.folder) ?? { minutes: 0, sessions: 0, files: new Set() };
+  cur.minutes += durationOf(s);
+  cur.sessions += 1;
+  s.files.forEach((f) => cur.files.add(f));
+  byFolder.set(s.folder, cur);
+}
+
+const ranked = [...byFolder.entries()].sort((a, b) => b[1].minutes - a[1].minutes);
+const longest = ranked[0][1].minutes;
+
+const barBox = document.getElementById('bars');
+for (const [name, v] of ranked) {
+  const row = el('div', 'bar-row');
+  row.tabIndex = 0;
+  row.title = `${name} · ${v.sessions}세션 · 파일 ${v.files.size}개`;
+
+  const track = el('div', 'bar-row__track');
+  const fill = el('div', 'bar-row__fill');
+  fill.style.width = `${(v.minutes / longest) * 100}%`;
+  track.append(fill);
+
+  const value = el('div', 'bar-row__value');
+  value.append(
+    el('div', null, formatDuration(v.minutes)),
+    el('div', 'caption bar-row__sessions', `${v.sessions}세션`),
+  );
+
+  row.append(el('div', 'bar-row__name', name), track, value);
+  barBox.append(row);
+}
+
+/* ── 날짜별 기록 ─────────────────────────────────────────────────── */
+const byDate = new Map();
+for (const s of MOCK) {
+  if (!byDate.has(s.date)) byDate.set(s.date, []);
+  byDate.get(s.date).push(s);
+}
+
+const dayBox = document.getElementById('days');
+for (const key of [...byDate.keys()].sort()) {
+  const daySessions = [...byDate.get(key)].sort(
+    (a, b) => toMinutes(a.start) - toMinutes(b.start));
+  const dayMinutes = daySessions.reduce((sum, s) => sum + durationOf(s), 0);
+
+  const day = el('div', 'day');
+  const head = el('div', 'day__head');
+  head.append(
+    el('h3', 'heading2', dayHeading(key)),
+    el('span', 'caption', `${daySessions.length}세션 · ${formatDuration(dayMinutes)}`),
+  );
+
+  const list = el('div', 'sessions');
+  for (const s of daySessions) {
+    const card = el('div', 'session');
+
+    const top = el('div', 'session__top');
+    top.append(
+      el('span', 'session__time', `${s.start}–${s.end}`),
+      el('span', 'session__folder', s.folder),
+      el('span', 'session__dur label1', formatDuration(durationOf(s))),
+    );
+
+    const files = el('div', 'files');
+    if (s.files.length === 0) {
+      files.append(el('span', 'file file--none', '고친 파일 없음'));
+    } else {
+      s.files.forEach((f) => files.append(el('span', 'file', f)));
+    }
+
+    card.append(top, el('div', 'session__what', s.what), files);
+    list.append(card);
+  }
+
+  day.append(head, list);
+  dayBox.append(day);
+}
+</script>
+</body>
+</html>

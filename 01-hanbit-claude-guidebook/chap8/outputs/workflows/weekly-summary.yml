@@ -1,0 +1,28 @@
+name: 주간 업무 요약
+
+on:
+  schedule:
+    # UTC 기준. 금요일 09:00 UTC = 금요일 18:00 KST
+    - cron: '0 9 * * 5'
+  # Actions 탭에서 손으로 즉시 실행할 수 있게 한다 (발송 테스트용)
+  workflow_dispatch:
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Seoul # 날짜 계산을 한국 시간 기준으로 맞춘다
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 요약문 미리보기
+        run: node scripts/weekly-summary.mjs --dry-run
+
+      - name: 디스코드로 발송
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: node scripts/weekly-summary.mjs
