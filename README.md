@@ -47,30 +47,7 @@
 | `markdown-to-pdf` | 마크다운 문서를 PDF로 변환 (7장 실습에서 설치) | [바로가기](./01-hanbit-claude-guidebook/chap7/skills/markdown-to-pdf/) |
 | 스킬 모음 전체 | 스킬 구조·설치 위치 설명 포함 | [바로가기](./02-skills/) |
 
----
-
-## 🔧 유즈케이스 모음
-
-책 본문에 다 담지 못한 곁가지입니다. **장 번호가 아니라 "무엇을 하고 싶은가"로 찾습니다.**
-
-| 하고 싶은 것 / Goal | 유즈케이스 / Use case | 링크 / Link |
-|------|------|------|
-| 클로드가 못 여는 파일(한글 문서·오디오) 다루기 | `read-unsupported-files` | [바로가기](./03-usecases/read-unsupported-files/) |
-| 클로드가 만든 앱스 스크립트를 직접 손보기 | `edit-apps-script` | [바로가기](./03-usecases/edit-apps-script/) |
-| 새 자동화 만들기 전에 이미 있는지 확인하기 | `find-before-you-build` | [바로가기](./03-usecases/find-before-you-build/) |
-| 웹페이지를 지도·내 도메인·다른 곳에 배포하기 | `deploy-elsewhere` | [바로가기](./03-usecases/deploy-elsewhere/) |
-| 낯선 점검 명령을 실행하기 전에 확인하기 | `supply-chain-safety` | [바로가기](./03-usecases/supply-chain-safety/) |
-| 디자인 시스템을 등록하는 다른 방법 | `register-design-system` | [바로가기](./03-usecases/register-design-system/) |
-| 클로드 코드에서 자주 쓰는 명령 정리 | `cli-commands` | [바로가기](./03-usecases/cli-commands/) |
-| 동의만 하지 말고 대안도 내주게 하기 | `better-answers` | [바로가기](./03-usecases/better-answers/) |
-| 답변 형식을 매번 요청하지 않고 고정하기 | `output-styles` | [바로가기](./03-usecases/output-styles/) |
-| 걸 수 있는 훅 이벤트 전체 보기 | `hook-events` | [바로가기](./03-usecases/hook-events/) |
-
-> 전체 목록과 갈래 설명은 [유즈케이스 모음](./03-usecases/)에서 확인하세요.
-
----
-
-## 🧩 외부 스킬 모음집
+### 외부 스킬 모음집
 
 | 모음집 / Collection | 설명 / Description | 링크 / Link |
 |------|------|------|
