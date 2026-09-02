@@ -8,9 +8,20 @@
 
 ## 만들어 보는 예제
 
-| 스킬 | 한 줄 | 가이드 |
-|------|------|--------|
-| `/new-project` | 새 프로젝트를 일관된 네이밍·git 셋업으로 시작 | [바로가기](./new-project/) |
+| 스킬 | 한 줄 | 쓰는 사람 | 가이드 |
+|------|------|------|--------|
+| `/new-project` | 새 프로젝트를 일관된 네이밍·git 셋업으로 시작 | 프로젝트를 자주 새로 여는 사람 | [바로가기](./new-project/) |
+| `korean-writing-style` | 보고서·메일·발표자료에서 AI 말투와 번역투를 걷어낸다 | 한국어 문서를 대외로 내보내는 모든 직장인 | [바로가기](./korean-writing-style/) |
+| `meeting-agenda` | 결정 안건에 옵션을, 액션에 주체·기한을 강제하는 회의 아젠다 3종 | 회의를 주관하는 사람 | [바로가기](./meeting-agenda/) |
+| `json-to-pptx` | 문안 JSON 한 장으로 같은 모양의 보고용 덱을 반복 생성 | 주간·분기 보고 덱을 만드는 사람 | [바로가기](./json-to-pptx/) |
+| `pptx-finalize` | PPT 폰트 임베드 → PDF → 한글 파일명 정규화. 남의 PC에서 글씨체가 깨지는 문제 예방 | 발표 파일을 외부로 보내는 사람 | [바로가기](./pptx-finalize/) |
+
+### 함께 쓰면 좋은 조합
+
+| 흐름 | 스킬 순서 |
+|------|------|
+| 회의 준비 | `meeting-agenda` → `korean-writing-style` → 기본 Word 스킬로 docx |
+| 보고 덱 | `json-to-pptx` → `korean-writing-style`(문안) → `pptx-finalize`(배포본) |
 
 _예제는 계속 추가됩니다._
 

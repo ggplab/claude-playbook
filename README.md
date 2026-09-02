@@ -44,6 +44,10 @@
 | 스킬 / Skill | 한 줄 / Description | 링크 / Link |
 |------|------|------|
 | `/new-project` | 새 프로젝트를 일관된 네이밍·git 셋업으로 시작 | [바로가기](./02-skills/new-project/) |
+| `korean-writing-style` | 보고서·메일·발표자료의 AI 말투와 번역투 제거 | [바로가기](./02-skills/korean-writing-style/) |
+| `meeting-agenda` | 결정과 액션이 한 눈에 보이는 회의 아젠다 3종 | [바로가기](./02-skills/meeting-agenda/) |
+| `json-to-pptx` | 문안 JSON 한 장으로 보고용 덱 생성 (python-pptx) | [바로가기](./02-skills/json-to-pptx/) |
+| `pptx-finalize` | PPT 폰트 임베드 → PDF, 한글 폰트 깨짐 예방 | [바로가기](./02-skills/pptx-finalize/) |
 | `markdown-to-pdf` | 마크다운 문서를 PDF로 변환 (7장 실습에서 설치) | [바로가기](./01-hanbit-claude-guidebook/chap7/skills/markdown-to-pdf/) |
 | 스킬 모음 전체 | 스킬 구조·설치 위치 설명 포함 | [바로가기](./02-skills/) |
 
