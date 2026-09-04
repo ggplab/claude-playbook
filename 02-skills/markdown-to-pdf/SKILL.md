@@ -6,8 +6,6 @@ description: '[Document Processing] Convert markdown files to PDF with syntax hi
 allowed-tools: NONE
 ---
 
-> **[IMPORTANT]** Use `TaskCreate` to break ALL work into small tasks BEFORE starting — including tasks for each file read. This prevents context loss from long files. For simple tasks, AI MUST ATTENTION ask user whether to skip.
-
 ## Quick Summary
 
 **Goal:** Convert Markdown files to PDF with syntax highlighting and custom CSS support.
@@ -24,22 +22,16 @@ allowed-tools: NONE
 - Supports syntax highlighting for code blocks
 - Custom CSS can be applied for styling
 
-**Be skeptical. Apply critical thinking, sequential thinking. Every claim needs traced proof, confidence percentages (Idea should be more than 80%).**
-
 # markdown-to-pdf
 
 Convert markdown files to high-quality PDF documents with code syntax highlighting and custom CSS support.
 
 ## Installation Required
 
-**This skill requires npm dependencies.** Run one of the following:
+**This skill requires npm dependencies.** Before the first conversion, check that `node_modules` exists next to this file. If not:
 
 ```bash
-# Option 1: Install via ClaudeKit CLI (recommended)
-ck init  # Runs install.sh which handles all skills
-
-# Option 2: Manual installation
-cd .claude/skills/markdown-to-pdf
+cd ~/.claude/skills/markdown-to-pdf
 npm install
 ```
 
@@ -51,13 +43,13 @@ npm install
 
 ```bash
 # Basic conversion
-node .claude/skills/markdown-to-pdf/scripts/convert.cjs --input ./README.md
+node ~/.claude/skills/markdown-to-pdf/scripts/convert.cjs --input ./README.md
 
 # Specify output path
-node .claude/skills/markdown-to-pdf/scripts/convert.cjs --input ./doc.md --output ./output.pdf
+node ~/.claude/skills/markdown-to-pdf/scripts/convert.cjs --input ./doc.md --output ./output.pdf
 
 # With custom CSS
-node .claude/skills/markdown-to-pdf/scripts/convert.cjs --input ./doc.md --css ./my-style.css
+node ~/.claude/skills/markdown-to-pdf/scripts/convert.cjs --input ./doc.md --css ./my-style.css
 ```
 
 ## CLI Options
@@ -109,11 +101,6 @@ Returns JSON on success:
 
 **Font issues:** Embed fonts via CSS `@font-face` with base64-encoded fonts for consistent rendering.
 
----
+## After Conversion
 
-## Closing Reminders
-
-- **IMPORTANT MUST ATTENTION** break work into small todo tasks using `TaskCreate` BEFORE starting
-- **IMPORTANT MUST ATTENTION** search codebase for 3+ similar patterns before creating new code
-- **IMPORTANT MUST ATTENTION** cite `file:line` evidence for every claim (confidence >80% to act)
-- **IMPORTANT MUST ATTENTION** add a final review todo task to verify work quality
+Report the output path and page count from the JSON result. Open or preview the PDF once to confirm Korean text renders and tables are intact.

@@ -1,0 +1,133 @@
+<!-- card-news 엔진 템플릿. build.py가 __CARDS__ 자리에 카드 HTML을 주입한다.
+     이 파일의 CSS를 카드마다 고쳐 쓰지 않는다. 크기 클래스를 새로 만들면 규격 검사가 FAIL 난다.
+     색을 바꾸고 싶으면 아래 :root 변수만 바꾼다. -->
+<style>
+  :root {
+    --accent: #2563EB;   /* 강조색. 한 카드에 한두 곳만 */
+    --ink:    #31302e;   /* 제목, 강조 본문 */
+    --body:   #615d59;   /* 보조 설명 */
+    --paper:  #ffffff;   /* 카드 배경 */
+    --line:   #dddddd;   /* 구분선 */
+    --note:   #f6f5f4;   /* 메모 박스 배경 */
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #a39e98;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    width: __W__px; height: __H__px;
+    background: var(--paper);
+    padding: 88px;
+    display: flex; flex-direction: column;
+    position: relative;
+    margin: 0 auto 24px;
+    overflow: hidden;
+  }
+  .bar { position: absolute; top: 0; left: 0; width: 100%; height: 12px; background: var(--accent); }
+
+  /* 크기 3단. 하한은 11 / (390 / 캔버스폭). 1080 캔버스에서 30.5px. */
+  .lg   { font-size: 64px; font-weight: 700; line-height: 1.2;  color: var(--ink);  letter-spacing: -0.02em; }
+  .md   { font-size: 40px; font-weight: 700; line-height: 1.35; color: var(--ink);  letter-spacing: -0.01em; }
+  .md-r { font-size: 40px; font-weight: 400; line-height: 1.4;  color: var(--body); letter-spacing: -0.01em; }
+  .sm   { font-size: 32px; font-weight: 400; line-height: 1.5;  color: var(--body); }
+  .sm-b { font-size: 32px; font-weight: 700; line-height: 1.5;  color: var(--ink); }
+  .sm-a { font-size: 32px; font-weight: 700; line-height: 1.5;  color: var(--accent); }
+
+  .label { margin-bottom: 28px; }
+  .title { margin-bottom: 56px; }
+  .rule  { height: 4px; background: var(--accent); width: 96px; margin-bottom: 40px; }
+
+  ul { list-style: none; }
+  li { padding: 26px 0; border-top: 1px solid var(--line); }
+  li:last-child { border-bottom: 1px solid var(--line); }
+  li .k { display: block; }
+  li .v { display: block; color: var(--body); }
+
+  .note { margin-top: auto; background: var(--note); border-left: 6px solid var(--accent); padding: 32px 36px; }
+  .foot { margin-top: 44px; display: flex; justify-content: space-between; align-items: baseline; }
+
+  .cover { justify-content: center; }
+  .cover .eyebrow { margin-bottom: 40px; }
+  .cover .lg { margin-bottom: 44px; }
+</style>
+
+__CARDS__
+
+<!-- 자가검사: 브라우저가 실제로 적용한 값을 잰다. build.py가 --dump-dom으로 회수한다.
+     정적 CSS 파싱으로는 캐스케이드를 못 풀기 때문에 여기서 잰다. -->
+<div id="lint-out" style="display:none"></div>
+<script>
+(function () {
+  function toRGB(s) {
+    var m = s.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/);
+    if (!m) return null;
+    return { r: +m[1], g: +m[2], b: +m[3], a: m[4] === undefined ? 1 : +m[4] };
+  }
+  function lum(c) {
+    var f = [c.r, c.g, c.b].map(function (v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * f[0] + 0.7152 * f[1] + 0.0722 * f[2];
+  }
+  function over(fg, bg) {  // 알파 합성
+    if (fg.a >= 1) return fg;
+    return { r: fg.r * fg.a + bg.r * (1 - fg.a),
+             g: fg.g * fg.a + bg.g * (1 - fg.a),
+             b: fg.b * fg.a + bg.b * (1 - fg.a), a: 1 };
+  }
+  function bgOf(el) {  // 배경이 투명하면 조상으로 올라간다
+    var cur = el;
+    while (cur && cur !== document.documentElement) {
+      var c = toRGB(getComputedStyle(cur).backgroundColor);
+      if (c && c.a > 0) return c;
+      cur = cur.parentElement;
+    }
+    return { r: 255, g: 255, b: 255, a: 1 };
+  }
+  function contrast(fg, bg) {
+    var a = lum(over(fg, bg)) + 0.05, b = lum(bg) + 0.05;
+    return a > b ? a / b : b / a;
+  }
+
+  var report = { cards: [] };
+  document.querySelectorAll('.card').forEach(function (card, idx) {
+    var cr = card.getBoundingClientRect();
+    var sizes = {}, worstContrast = 99, worstText = '', maxBottom = -1e9, lowest = '';
+    var items = card.querySelectorAll('li').length;
+
+    card.querySelectorAll('*').forEach(function (el) {
+      var txt = '';
+      for (var i = 0; i < el.childNodes.length; i++) {
+        if (el.childNodes[i].nodeType === 3) txt += el.childNodes[i].nodeValue;
+      }
+      txt = txt.trim();
+      var r = el.getBoundingClientRect();
+      if (r.height > 0 && r.bottom > maxBottom) { maxBottom = r.bottom; lowest = (el.textContent || '').trim().slice(0, 24); }
+      if (!txt) return;
+      var cs = getComputedStyle(el);
+      var px = Math.round(parseFloat(cs.fontSize));
+      sizes[px] = (sizes[px] || 0) + 1;
+      var fg = toRGB(cs.color);
+      if (fg) {
+        var ct = contrast(fg, bgOf(el));
+        if (ct < worstContrast) { worstContrast = ct; worstText = txt.slice(0, 24); }
+      }
+    });
+
+    report.cards.push({
+      i: idx + 1,
+      sizes: Object.keys(sizes).map(Number).sort(function (a, b) { return b - a; }),
+      minSize: Math.min.apply(null, Object.keys(sizes).map(Number)),
+      contrast: Math.round(worstContrast * 100) / 100,
+      contrastText: worstText,
+      items: items,
+      slack: Math.round(cr.bottom - maxBottom),
+      lowest: lowest
+    });
+  });
+  document.getElementById('lint-out').textContent = 'LINT_JSON:' + JSON.stringify(report);
+})();
+</script>

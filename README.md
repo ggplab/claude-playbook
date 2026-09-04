@@ -48,7 +48,8 @@
 | `meeting-agenda` | 결정과 액션이 한 눈에 보이는 회의 아젠다 3종 | [바로가기](./02-skills/meeting-agenda/) |
 | `json-to-pptx` | 문안 JSON 한 장으로 보고용 덱 생성 (python-pptx) | [바로가기](./02-skills/json-to-pptx/) |
 | `pptx-finalize` | PPT 폰트 임베드 → PDF, 한글 폰트 깨짐 예방 | [바로가기](./02-skills/pptx-finalize/) |
-| `markdown-to-pdf` | 마크다운 문서를 PDF로 변환 (7장 실습에서 설치) | [바로가기](./01-hanbit-claude-guidebook/chap7/skills/markdown-to-pdf/) |
+| `markdown-to-pdf` | 마크다운 보고서를 표·코드 블록 그대로 PDF로 변환 (7장 실습) | [바로가기](./02-skills/markdown-to-pdf/) |
+| `card-news` | JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱 생성 (7장 실습) | [바로가기](./02-skills/card-news/) |
 | 스킬 모음 전체 | 스킬 구조·설치 위치 설명 포함 | [바로가기](./02-skills/) |
 
 ### 외부 스킬 모음집
