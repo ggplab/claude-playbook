@@ -32,6 +32,7 @@
 |------|------|------|
 | 7장 산출물 기준본 | 조사 계획서 · 조사팀 셋 · 보고서 · PDF · 공유 카드 | [바로가기](./01-hanbit-claude-guidebook/chap7/outputs/) |
 | 7장 카드 디자인 기준 | 카드가 메신저에서 실제로 읽히게 하는 최소 기준 | [바로가기](./01-hanbit-claude-guidebook/chap7/Chap7_card-design-system.md) |
+| 7장 상태줄 | 터미널 하단에 모델·비용·사용량 게이지를 띄우는 스크립트와 설치 안내 | [바로가기](./01-hanbit-claude-guidebook/chap7/Chap7_statusline_install.md) |
 | 8장 업무일지 형식 | 세션 종료 훅이 기록하는 형식. 훅을 걸 때 클로드에게 함께 준다 | [바로가기](./01-hanbit-claude-guidebook/chap8/WORKLOG_FORMAT.md) |
 | 8장 산출물 기준본 | 계획서 · 훅 스크립트 · 주간 요약 · 워크플로 · 대시보드 | [바로가기](./01-hanbit-claude-guidebook/chap8/outputs/) |
 

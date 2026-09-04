@@ -16,14 +16,16 @@ ctx ▓▓░░░░░░ 25%  5h ▓▓▓▓░░░░ 48%  7d ▓▓▓�
 - 2줄: 컨텍스트(ctx) · 5시간(5h) · 7일(7d) 사용량 진행바
 - 사용량이 75%를 넘으면 게이지가 노란색, 90%를 넘으면 빨간색으로 바뀝니다.
 
-## 가장 쉬운 방법 — Claude Code에게 통째로 맡기기
+## 가장 쉬운 방법: 링크만 주고 Claude Code에게 맡기기
 
-터미널을 잘 몰라도 됩니다. 아래 스크립트 전체를 복사한 뒤, Claude Code 채팅창에 붙여넣고 이렇게 말하면 Claude가 알아서 설치해 줍니다:
+터미널을 잘 몰라도 됩니다. 파일을 복사할 필요도 없습니다. Claude Code 채팅창에 아래를 그대로 붙여넣으면 Claude가 스크립트를 받아 저장하고 설정까지 끝냅니다.
 
 ```
-이 스크립트를 ~/.claude/statusline-command.sh 로 저장하고,
+아래 주소의 상태줄 스크립트를 ~/.claude/statusline-command.sh 로 저장하고,
 settings.json의 statusLine이 이 파일을 실행하도록 설정해줘.
-jq가 없으면 설치도 해줘.
+https://raw.githubusercontent.com/ggplab/claude-playbook/main/01-hanbit-claude-guidebook/chap7/Chap7_statusline-command.sh
+- jq가 없으면 설치도 해줘
+- 끝나면 Claude Code를 다시 켰을 때 상태줄이 보이는지 확인하는 방법을 알려줘
 ```
 
 직접 설치하고 싶다면 아래 1 → 2 → 3 순서대로 따라 하세요.

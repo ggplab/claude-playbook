@@ -49,3 +49,16 @@ https://github.com/ggplab/claude-playbook/tree/main/02-skills/card-news
 설치 후 스킬 목록에 `card-news`가 보이면 성공입니다. Chrome만 있으면 되고 추가 패키지 설치는 없습니다.
 
 > 이 스킬은 [`Chap7_card-design-system.md`](./Chap7_card-design-system.md)의 기준(글자 3단, 최소 32px, 항목 6개 이하)을 코드로 고정한 것입니다. 기준에 못 미치면 PNG를 만들지 않고 이유를 알려 줍니다. 스킬 없이 기준 문서만 클로드에게 주고 카드를 만들어도 됩니다. 두 방법 모두 책 본문에서 다룹니다.
+
+## 상태줄 설치하기
+
+터미널 맨 아래에 모델, 프로젝트, 브랜치, 비용, 사용량 게이지를 띄우는 설정입니다. 마찬가지로 링크만 주면 됩니다.
+
+```
+아래 주소의 상태줄 스크립트를 ~/.claude/statusline-command.sh 로 저장하고,
+settings.json의 statusLine이 이 파일을 실행하도록 설정해줘.
+https://raw.githubusercontent.com/ggplab/claude-playbook/main/01-hanbit-claude-guidebook/chap7/Chap7_statusline-command.sh
+- jq가 없으면 설치도 해줘
+```
+
+Claude Code를 다시 켜서 입력창 아래에 상태줄 2줄이 보이면 성공입니다. 안 뜰 때 점검 목록은 [`Chap7_statusline_install.md`](./Chap7_statusline_install.md)에 있습니다.
