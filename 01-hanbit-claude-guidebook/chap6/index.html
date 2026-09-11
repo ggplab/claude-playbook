@@ -3,105 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
 <title>서울 전월세 시세 — 신혼부부용</title>
 <style>
-  :root {
-    /* DESIGN.md 토큰 — 원티드 Montage (light) */
-    --bg: #FFFFFF;
-    --bg-alt: #F7F7F8;
-    --text: #171719;              /* 기본 텍스트 */
-    --text-strong: #000000;       /* 제목 */
-    --text-sub: rgba(46, 47, 51, 0.88);   /* 보조 텍스트 */
-    --text-faint: rgba(55, 56, 60, 0.61); /* 흐린 보조 */
-    --primary: #0066FF;           /* 강조 파랑 */
-    --primary-strong: #005EEB;
-    --primary-heavy: #0054D1;
-    --line: #E1E2E4;              /* 구분선·테두리 */
-    --fill: #EAEBEC;             /* 막대 트랙·격자 */
-    --up: #E52222;               /* 오름 = 빨강 (부동산 관행) */
-    --down: #0054D1;             /* 내림 = 파랑 */
-    --flat: rgba(46, 47, 51, 0.88);
-    --caution: #D47800;          /* 주의 텍스트 */
-    --caution-bg: rgba(255, 146, 0, 0.08);
-    --caution-line: rgba(255, 146, 0, 0.30);
-  }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: 'Wanted Sans Variable', 'Wanted Sans', 'Pretendard', "Apple SD Gothic Neo", system-ui, sans-serif;
-    line-height: 1.6; font-size: 16px;
-    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    margin: 0; background: #ffffff; color: #1a1f24;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    line-height: 1.65; font-size: 16px;
   }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
-  h1 { font-size: 32px; line-height: 44px; font-weight: 700; color: var(--text-strong); margin: 0 0 8px; letter-spacing: -.025em; }
-  .sub { color: var(--text-sub); font-size: 15px; line-height: 22px; margin: 0 0 4px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 18px 80px; }
+  h1 { font-size: 24px; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: #5b6672; font-size: 14px; margin: 0 0 4px; }
   .disclaimer {
-    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 12px;
-    padding: 12px 16px; font-size: 14px; color: var(--text-sub); margin: 16px 0 8px;
+    background: #f5f7f9; border: 1px solid #e2e7ec; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; color: #4a5560; margin: 16px 0 8px;
   }
-  section { margin-top: 48px; }
-  h2 { font-size: 24px; line-height: 32px; font-weight: 700; color: var(--text-strong); margin: 0 0 6px; letter-spacing: -.023em; }
-  .hint { color: var(--text-sub); font-size: 14px; line-height: 20px; margin: 0 0 20px; }
-  .controls { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin-bottom: 24px; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 13px; color: var(--text-sub); }
+  section { margin-top: 40px; }
+  h2 { font-size: 19px; margin: 0 0 4px; letter-spacing: -.01em; }
+  .hint { color: #6b7681; font-size: 13.5px; margin: 0 0 16px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; margin-bottom: 18px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12.5px; color: #6b7681; }
   select, input[type="number"] {
-    font: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid var(--line);
-    border-radius: 8px; background: var(--bg); color: var(--text); min-width: 120px;
+    font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid #cfd6dd;
+    border-radius: 7px; background: #fff; color: #1a1f24; min-width: 120px;
   }
-  select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,102,255,0.12); }
-  input[type="range"] { width: 100%; accent-color: var(--primary); }
-  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  input[type="range"] { width: 100%; accent-color: #1b5e7e; }
+  .seg { display: inline-flex; border: 1px solid #cfd6dd; border-radius: 7px; overflow: hidden; }
   .seg button {
-    font: inherit; font-size: 14px; font-weight: 500; padding: 10px 16px; border: 0; background: var(--bg);
-    color: var(--text-sub); cursor: pointer;
+    font: inherit; font-size: 14px; padding: 8px 16px; border: 0; background: #fff;
+    color: #4a5560; cursor: pointer;
   }
-  .seg button[aria-pressed="true"] { background: var(--primary); color: #fff; }
+  .seg button[aria-pressed="true"] { background: #1b5e7e; color: #fff; }
   .out { margin-top: 4px; }
-  .lead { font-size: 15px; color: var(--text); margin: 0 0 16px; }
-  .lead b { color: var(--primary); font-weight: 600; }
-  .empty { color: var(--text-faint); font-size: 14px; padding: 20px 0; }
+  .lead { font-size: 15px; color: #2b333b; margin: 0 0 12px; }
+  .lead b { color: #1b5e7e; }
+  .empty { color: #8a939d; font-size: 14px; padding: 18px 0; }
 
   /* 막대 목록 */
   .bars { display: flex; flex-direction: column; gap: 8px; }
-  .bar-row { display: grid; grid-template-columns: 92px 1fr auto; align-items: center; gap: 12px; font-size: 14px; }
-  .bar-row .name { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .bar-track { background: var(--fill); border-radius: 4px; height: 22px; overflow: hidden; }
-  .bar-fill { height: 100%; background: var(--primary); border-radius: 4px; min-width: 2px; }
-  .bar-row.low .bar-fill { background: #C2C4C8; }
-  .bar-row .val { font-variant-numeric: tabular-nums; color: var(--text); white-space: nowrap; }
-  .bar-row .n { color: var(--text-faint); font-size: 12px; }
-  .low-tag { color: var(--caution); font-size: 11px; margin-left: 4px; }
+  .bar-row { display: grid; grid-template-columns: 92px 1fr auto; align-items: center; gap: 10px; font-size: 14px; }
+  .bar-row .name { color: #2b333b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { background: #eef1f4; border-radius: 4px; height: 22px; overflow: hidden; }
+  .bar-fill { height: 100%; background: #1b5e7e; border-radius: 4px; min-width: 2px; }
+  .bar-row.low .bar-fill { background: #b9c4cd; }
+  .bar-row .val { font-variant-numeric: tabular-nums; color: #3a434c; white-space: nowrap; }
+  .bar-row .n { color: #99a2ac; font-size: 12px; }
+  .low-tag { color: #a2661b; font-size: 11px; margin-left: 4px; }
 
   /* 추이 */
-  .trend-summary { font-size: 15px; margin: 0 0 12px; color: var(--text); }
-  .up { color: var(--up); font-weight: 600; }
-  .down { color: var(--down); font-weight: 600; }
-  .flat { color: var(--flat); font-weight: 600; }
+  .trend-summary { font-size: 15px; margin: 0 0 10px; color: #2b333b; }
+  .up { color: #b23a2e; font-weight: 600; }
+  .down { color: #1e7a4d; font-weight: 600; }
+  .flat { color: #5b6672; font-weight: 600; }
   svg { display: block; width: 100%; height: auto; }
 
   /* 상세 카드 */
-  .detail { border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
-  .detail .big { font-size: 28px; line-height: 38px; font-weight: 700; color: var(--primary); letter-spacing: -.023em; }
-  .detail .rows { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .detail .rows div { display: flex; justify-content: space-between; font-size: 15px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
-  .detail .rows div span:first-child { color: var(--text-sub); }
-  .detail .rows div span:last-child { font-variant-numeric: tabular-nums; color: var(--text); }
-  .warn { background: var(--caution-bg); border: 1px solid var(--caution-line); color: var(--caution); border-radius: 8px; padding: 12px 16px; font-size: 14px; margin-top: 16px; }
+  .detail { border: 1px solid #e2e7ec; border-radius: 10px; padding: 18px 20px; }
+  .detail .big { font-size: 26px; font-weight: 700; color: #1b5e7e; letter-spacing: -.01em; }
+  .detail .rows { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .detail .rows div { display: flex; justify-content: space-between; font-size: 14.5px; border-bottom: 1px solid #f0f3f5; padding-bottom: 8px; }
+  .detail .rows div span:first-child { color: #6b7681; }
+  .detail .rows div span:last-child { font-variant-numeric: tabular-nums; color: #2b333b; }
+  .warn { background: #fdf4e3; border: 1px solid #f0e0c0; color: #8a5a12; border-radius: 8px; padding: 10px 14px; font-size: 13.5px; margin-top: 12px; }
 
-  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--text-faint); font-size: 13px; }
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid #e8ecef; color: #99a2ac; font-size: 12.5px; }
 
   @media (max-width: 560px) {
     body { font-size: 15px; }
-    .wrap { padding: 24px 16px 64px; }
-    h1 { font-size: 26px; line-height: 34px; }
-    h2 { font-size: 20px; line-height: 28px; }
     .bar-row { grid-template-columns: 74px 1fr; grid-row-gap: 2px; }
     .bar-row .val { grid-column: 2; font-size: 13px; }
-    .detail .big { font-size: 24px; }
+    .detail .big { font-size: 22px; }
   }
 </style>
 </head>
@@ -342,18 +315,18 @@ function renderS3(){
     const x=xf(p.i), y=yf(p.m);
     path += (started?" L":"M")+x.toFixed(1)+" "+y.toFixed(1);
     started=true;
-    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#0066FF"><title>'+ms[p.i]+' · '+won(p.m)+' · '+p.n+'건</title></circle>';
+    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#1b5e7e"><title>'+ms[p.i]+' · '+won(p.m)+' · '+p.n+'건</title></circle>';
   });
   const gridY=[mn,Math.round((mn+mx)/2),mx].map(v=>{
     const y=yf(v).toFixed(1);
-    return '<line x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'" stroke="#EAEBEC"/>'+
-      '<text x="'+(pl-8)+'" y="'+(+y+4)+'" text-anchor="end" font-size="11" fill="#878A93">'+won(v)+'</text>';
+    return '<line x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'" stroke="#eef1f4"/>'+
+      '<text x="'+(pl-8)+'" y="'+(+y+4)+'" text-anchor="end" font-size="11" fill="#99a2ac">'+won(v)+'</text>';
   }).join('');
-  const xlab=ms.map((m,i)=> (i%2===0)?'<text x="'+xf(i).toFixed(1)+'" y="'+(H-14)+'" text-anchor="middle" font-size="10" fill="#878A93">'+m.slice(2)+'</text>':'').join('');
+  const xlab=ms.map((m,i)=> (i%2===0)?'<text x="'+xf(i).toFixed(1)+'" y="'+(H-14)+'" text-anchor="middle" font-size="10" fill="#99a2ac">'+m.slice(2)+'</text>':'').join('');
   out.innerHTML='<p class="trend-summary">'+g+' · '+BUCKET_DESC[b]+' · '+t+' 중앙값이 지난 1년간 '+
     won(first.m)+' → '+won(last.m)+' <span class="'+cls+'">'+dir+'</span></p>'+
     '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="월별 중앙값 추이">'+gridY+
-    '<path d="'+path+'" fill="none" stroke="#0066FF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
+    '<path d="'+path+'" fill="none" stroke="#1b5e7e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
     dots+xlab+'</svg>';
 }
 
@@ -373,7 +346,7 @@ function renderS4(){
            '<div><span>거래 건수</span><span>'+e.n+'건</span></div>';
   if(t==="월세" && e.mr!=null) rows='<div><span>월세 중앙값</span><span>'+e.mr+'만원</span></div>'+rows;
   const warn=(e.n<MIN_N)?'<div class="warn">이 조건은 거래가 '+e.n+'건뿐이라 시세가 정확하지 않을 수 있습니다.</div>':'';
-  out.innerHTML='<div class="detail"><div style="font-size:14px;color:var(--text-sub)">'+g+' '+d+' · '+BUCKET_DESC[b]+' · '+t+' 대표 시세(중앙값)</div>'+
+  out.innerHTML='<div class="detail"><div style="font-size:14px;color:#6b7681">'+g+' '+d+' · '+BUCKET_DESC[b]+' · '+t+' 대표 시세(중앙값)</div>'+
     '<div class="big">'+won(e.m)+'</div><div class="rows">'+rows+'</div>'+warn+'</div>';
 }
 

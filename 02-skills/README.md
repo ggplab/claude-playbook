@@ -15,8 +15,8 @@
 | `meeting-agenda` | 결정 안건에 옵션을, 액션에 주체·기한을 강제하는 회의 아젠다 3종 | 회의를 주관하는 사람 | [바로가기](./meeting-agenda/) |
 | `json-to-pptx` | 문안 JSON 한 장으로 같은 모양의 보고용 덱을 반복 생성 | 주간·분기 보고 덱을 만드는 사람 | [바로가기](./json-to-pptx/) |
 | `pptx-finalize` | PPT 폰트 임베드 → PDF → 한글 파일명 정규화. 남의 PC에서 글씨체가 깨지는 문제 예방 | 발표 파일을 외부로 보내는 사람 | [바로가기](./pptx-finalize/) |
-| `markdown-to-pdf` | 클로드가 쓴 마크다운 보고서를 표·코드 블록 그대로 PDF로 | 조사 결과를 문서로 보내는 사람 (7장 실습) | [바로가기](./markdown-to-pdf/) |
-| `card-news` | 내용 JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱. 규격 미달이면 PNG를 만들지 않는다 | 요약을 카톡·SNS로 공유하는 사람 (7장 실습) | [바로가기](./card-news/) |
+| `markdown-to-pdf` | 클로드가 쓴 마크다운 보고서를 표·코드 블록 그대로 PDF로 | 조사 결과를 문서로 보내는 사람 (8장 실습) | [바로가기](./markdown-to-pdf/) |
+| `card-news` | 내용 JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱. 규격 미달이면 PNG를 만들지 않는다 | 요약을 카톡·SNS로 공유하는 사람 (8장 실습) | [바로가기](./card-news/) |
 | `architecture-drawio-diagram` | 로고가 큼직한 시스템 구조도를 파이썬 좌표로 그려 draw.io 파일과 PNG 동시 생성. 없으면 Mermaid 대안 | 블로그·발표에 구조도를 넣는 사람 | [바로가기](./architecture-drawio-diagram/) |
 
 ### 함께 쓰면 좋은 조합
@@ -25,7 +25,7 @@
 |------|------|
 | 회의 준비 | `meeting-agenda` → `korean-writing-style` → 기본 Word 스킬로 docx |
 | 보고 덱 | `json-to-pptx` → `korean-writing-style`(문안) → `pptx-finalize`(배포본) |
-| 조사 결과 공유 (7장) | 서브에이전트 보고서 → `markdown-to-pdf`(문서) → `card-news`(메신저용 카드) |
+| 조사 결과 공유 (8장) | 서브에이전트 보고서 → `markdown-to-pdf`(문서) → `card-news`(메신저용 카드) |
 | 기술 블로그 글 | `architecture-drawio-diagram`(구조도) → `korean-writing-style`(본문) |
 
 _예제는 계속 추가됩니다._

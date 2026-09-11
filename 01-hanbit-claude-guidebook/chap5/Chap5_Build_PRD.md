@@ -1,6 +1,6 @@
 # 한국 주식 시세 수집기 — PRD (제품 요구사항 정의서)
 
-문서명: chap4_PRD.md
+문서명: chap5_PRD.md
 작성일: 2026-07-10
 스택: 구글 시트(Google Sheets) + 앱스 스크립트(Apps Script)
 대상 종목: 삼성전자, SK하이닉스

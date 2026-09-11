@@ -17,12 +17,13 @@
 | 장 / Ch. | 유즈케이스 / Use case | 주요 기능 / Features | 링크 / Link |
 |----|-----------|------------|------|
 | 2장 | 회의 아젠다 만들기 | 프로젝트, 아티팩트, 웹 검색, 프로젝트 지침 | [바로가기](./01-hanbit-claude-guidebook/chap2/) |
-| 3장 | 리서치 자동화와 주식 리포트 | 코워크, 커넥터, 예약 작업, 스킬 | [바로가기](./01-hanbit-claude-guidebook/chap3/) |
-| 4장 | 컴퓨터를 꺼도 도는 주가 수집기 | 앱스 스크립트, 구글 시트, PRD, 스킬 재사용 | [바로가기](./01-hanbit-claude-guidebook/chap4/) |
-| 5장 | 우리 동네 실거래가 대시보드 배포 | 클로드 코드, CLAUDE.md, 깃허브 Pages | [바로가기](./01-hanbit-claude-guidebook/chap5/) |
-| 6장 | 슬라이드 덱과 나만의 디자인 시스템 | 클로드 디자인, DESIGN.md | [바로가기](./01-hanbit-claude-guidebook/chap6/) |
-| 7장 | 연말정산 조사팀 만들기 | 클로드 코드(CLI), 플랜 모드, 서브에이전트, 아티팩트 | [바로가기](./01-hanbit-claude-guidebook/chap7/) |
-| 8장 | 알아서 쌓이는 업무일지 | 훅(Hooks), 깃허브 액션, 디스코드 웹훅 | [바로가기](./01-hanbit-claude-guidebook/chap8/) |
+| 3장 | 흩어진 파일을 하나의 리포트로 | _업데이트 예정_ | [바로가기](./01-hanbit-claude-guidebook/chap3/) |
+| 4장 | 리서치 자동화와 주식 리포트 | 코워크, 커넥터, 예약 작업, 스킬 | [바로가기](./01-hanbit-claude-guidebook/chap4/) |
+| 5장 | 컴퓨터를 꺼도 도는 주가 수집기 | 앱스 스크립트, 구글 시트, PRD, 스킬 재사용 | [바로가기](./01-hanbit-claude-guidebook/chap5/) |
+| 6장 | 우리 동네 실거래가 대시보드 배포 | 클로드 코드, CLAUDE.md, 깃허브 Pages | [바로가기](./01-hanbit-claude-guidebook/chap6/) |
+| 7장 | 슬라이드 덱과 나만의 디자인 시스템 | 클로드 디자인, DESIGN.md | [바로가기](./01-hanbit-claude-guidebook/chap7/) |
+| 8장 | 연말정산 조사팀 만들기 | 클로드 코드(CLI), 플랜 모드, 서브에이전트, 아티팩트 | [바로가기](./01-hanbit-claude-guidebook/chap8/) |
+| 9장 | 알아서 쌓이는 업무일지 | 훅(Hooks), 깃허브 액션, 디스코드 웹훅 | [바로가기](./01-hanbit-claude-guidebook/chap9/) |
 
 ### 장별 기준 자료
 
@@ -30,11 +31,11 @@
 
 | 자료 / Resource | 설명 / Description | 링크 / Link |
 |------|------|------|
-| 7장 산출물 기준본 | 조사 계획서 · 조사팀 셋 · 보고서 · PDF · 공유 카드 | [바로가기](./01-hanbit-claude-guidebook/chap7/outputs/) |
-| 7장 카드 디자인 기준 | 카드가 메신저에서 실제로 읽히게 하는 최소 기준 | [바로가기](./01-hanbit-claude-guidebook/chap7/Chap7_card-design-system.md) |
-| 7장 상태줄 | 터미널 하단에 모델·비용·사용량 게이지를 띄우는 스크립트와 설치 안내 | [바로가기](./01-hanbit-claude-guidebook/chap7/Chap7_statusline_install.md) |
-| 8장 업무일지 형식 | 세션 종료 훅이 기록하는 형식. 훅을 걸 때 클로드에게 함께 준다 | [바로가기](./01-hanbit-claude-guidebook/chap8/WORKLOG_FORMAT.md) |
-| 8장 산출물 기준본 | 계획서 · 훅 스크립트 · 주간 요약 · 워크플로 · 대시보드 | [바로가기](./01-hanbit-claude-guidebook/chap8/outputs/) |
+| 8장 산출물 기준본 | 조사 계획서 · 조사팀 셋 · 보고서 · PDF · 공유 카드 | [바로가기](./01-hanbit-claude-guidebook/chap8/outputs/) |
+| 8장 카드 디자인 기준 | 카드가 메신저에서 실제로 읽히게 하는 최소 기준 | [바로가기](./01-hanbit-claude-guidebook/chap8/Chap8_card-design-system.md) |
+| 8장 상태줄 | 터미널 하단에 모델·비용·사용량 게이지를 띄우는 스크립트와 설치 안내 | [바로가기](./01-hanbit-claude-guidebook/chap8/Chap8_statusline_install.md) |
+| 9장 업무일지 형식 | 세션 종료 훅이 기록하는 형식. 훅을 걸 때 클로드에게 함께 준다 | [바로가기](./01-hanbit-claude-guidebook/chap9/WORKLOG_FORMAT.md) |
+| 9장 산출물 기준본 | 계획서 · 훅 스크립트 · 주간 요약 · 워크플로 · 대시보드 | [바로가기](./01-hanbit-claude-guidebook/chap9/outputs/) |
 
 ---
 
@@ -49,8 +50,8 @@
 | `meeting-agenda` | 결정과 액션이 한 눈에 보이는 회의 아젠다 3종 | [바로가기](./02-skills/meeting-agenda/) |
 | `json-to-pptx` | 문안 JSON 한 장으로 보고용 덱 생성 (python-pptx) | [바로가기](./02-skills/json-to-pptx/) |
 | `pptx-finalize` | PPT 폰트 임베드 → PDF, 한글 폰트 깨짐 예방 | [바로가기](./02-skills/pptx-finalize/) |
-| `markdown-to-pdf` | 마크다운 보고서를 표·코드 블록 그대로 PDF로 변환 (7장 실습) | [바로가기](./02-skills/markdown-to-pdf/) |
-| `card-news` | JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱 생성 (7장 실습) | [바로가기](./02-skills/card-news/) |
+| `markdown-to-pdf` | 마크다운 보고서를 표·코드 블록 그대로 PDF로 변환 (8장 실습) | [바로가기](./02-skills/markdown-to-pdf/) |
+| `card-news` | JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱 생성 (8장 실습) | [바로가기](./02-skills/card-news/) |
 | `architecture-drawio-diagram` | 로고 큼직한 시스템 구조도를 코드로. draw.io 파일 + PNG, 없으면 Mermaid | [바로가기](./02-skills/architecture-drawio-diagram/) |
 | 스킬 모음 전체 | 스킬 구조·설치 위치 설명 포함 | [바로가기](./02-skills/) |
 
@@ -72,7 +73,7 @@
 | 3. 로그인 | 설치한 앱에서 같은 계정으로 로그인 | — |
 | 4. 첫 대화 | 입력창에 한국어로 질문을 적고 엔터 | 명령어 외울 필요 없음 |
 | 5. (선택) 플랜 올리기 | 더 많이 쓰려면 Pro 구독 | 아래 플랜 표 참고 |
-| 6. (심화) 터미널 | [Claude Code](https://claude.com/claude-code) 설치 | 7장부터 사용 |
+| 6. (심화) 터미널 | [Claude Code](https://claude.com/claude-code) 설치 | 8장부터 사용 |
 
 ---
 

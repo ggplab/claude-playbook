@@ -145,7 +145,7 @@ set CARD_NEWS_CHROME=C:\경로\chrome.exe
 - 인용 카드, 숫자 강조 카드 같은 타입이 필요하면 `build.py`의 `render_card`에 분기를 더합니다.
   단, 새 글자 크기를 만들면 3단 규칙에 걸려 FAIL이 납니다. 그게 의도입니다.
 - 정방형(1080×1080)은 `meta.canvas`로 지정할 수 있지만 실측하지 않았습니다. 처음 쓸 때는 하단 여백 경고를 보세요.
-- 7장 실습의 [카드 디자인 기준](../../01-hanbit-claude-guidebook/chap7/Chap7_card-design-system.md)은
+- 8장 실습의 [카드 디자인 기준](../../01-hanbit-claude-guidebook/chap8/Chap8_card-design-system.md)은
   이 스킬이 코드로 고정한 규칙의 **글 버전**입니다. 스킬 없이 클로드에게 문서만 주고 만들 때 씁니다.
 
 ---

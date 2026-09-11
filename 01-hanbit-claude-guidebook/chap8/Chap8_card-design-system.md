@@ -1,7 +1,7 @@
 # 카드 디자인 기준 (Card Design System)
 
 카카오톡·메신저로 공유할 **카드 이미지 한 장이 실제로 읽히게** 만드는 최소 기준입니다.
-7장 실습에서 조사 결과를 카드로 만들 때 이 파일을 클로드에게 함께 주면, 매번 같은 기준으로 만들어 줍니다.
+8장 실습에서 조사 결과를 카드로 만들 때 이 파일을 클로드에게 함께 주면, 매번 같은 기준으로 만들어 줍니다.
 
 ---
 
@@ -159,7 +159,7 @@
 
 ```
 아래 문서 기준으로 카드를 만들어줘.
-https://github.com/ggplab/claude-playbook/blob/main/01-hanbit-claude-guidebook/chap7/Chap7_card-design-system.md
+https://github.com/ggplab/claude-playbook/blob/main/01-hanbit-claude-guidebook/chap8/Chap8_card-design-system.md
 ```
 
 무엇을 담을지는 그때그때 다르므로 프롬프트에 적고, **어떻게 보일지는 이 파일에 맡깁니다.**

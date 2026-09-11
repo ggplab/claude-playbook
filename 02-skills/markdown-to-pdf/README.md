@@ -1,7 +1,7 @@
 # `markdown-to-pdf`: 클로드가 쓴 마크다운 보고서를 그대로 PDF로 만드는 스킬
 
 > 클로드가 만든 `report.md`를 메일에 첨부하려면 PDF가 필요합니다. 워드로 열어 저장하면 표와 코드
-> 블록이 흐트러집니다. 이 스킬은 마크다운을 그대로 PDF로 찍습니다. 7장 실습에서 씁니다.
+> 블록이 흐트러집니다. 이 스킬은 마크다운을 그대로 PDF로 찍습니다. 8장 실습에서 씁니다.
 
 같은 폴더의 [`SKILL.md`](./SKILL.md), [`scripts/`](./scripts), [`assets/`](./assets), [`package.json`](./package.json)을
 그대로 복사해서 씁니다.
@@ -94,7 +94,7 @@ node ~/.claude/skills/markdown-to-pdf/scripts/convert.cjs --input README.md
 
 ### 내 스타일로 바꾸기
 
-7장 실습은 [`print-style.css`](../../01-hanbit-claude-guidebook/chap7/outputs/print-style.css)를 `--css`로 넘겨
+8장 실습은 [`print-style.css`](../../01-hanbit-claude-guidebook/chap8/outputs/print-style.css)를 `--css`로 넘겨
 보고서 모양을 맞췄습니다. 폰트와 여백만 바꾼 작은 CSS입니다. 그대로 복사해 시작하면 됩니다.
 
 ---

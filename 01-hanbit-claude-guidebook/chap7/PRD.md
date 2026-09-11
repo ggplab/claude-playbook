@@ -36,7 +36,7 @@
 
 ### 출처
 - 파일: `data.csv` (이 폴더에 저장됨, 27.6MB, 320,141줄)
-- 받은 곳: 깃허브 실습 저장소 `github.com/ggplab/claude-playbook` → `chap5/seoul-apt-latest.csv`
+- 받은 곳: 깃허브 실습 저장소 `github.com/ggplab/claude-playbook` → `chap6/seoul-apt-latest.csv`
 - **주의**: 국토교통부 원본을 가공한 것인지 파일에 표기가 없어 **확인 불가**. 실습용으로는 충분하나, 실제 공개 서비스로 쓸 땐 원본 대조 필요.
 
 ### 원본 컬럼 (12개)

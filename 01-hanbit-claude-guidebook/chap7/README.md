@@ -1,64 +1,36 @@
-# 7장 클로드 코드(CLI)로 조사팀 만들기
+# 7장 — 우리 동네 실거래가 대시보드
 
-> 집필 진행 중 — 실습 자료는 출간에 맞춰 계속 업데이트됩니다.
+서울 아파트 전·월세 실거래 데이터를 **신혼부부 눈높이로** 보여주는 웹 대시보드를,
+코드를 한 줄도 직접 쓰지 않고 **클로드와의 대화만으로** 만든 실습입니다.
+
+## 바로 보기
+
+- **온라인 미리보기**: https://ggplab.github.io/apt-dashboard
+- 이 폴더의 `index.html`을 **더블클릭**해도 바로 열립니다. (데이터가 파일 안에 들어 있어 인터넷 없이도 동작)
+
+![대시보드 화면](chap7_screenshot.png)
 
 ## 실습 자료
 
 | 항목 | 내용 |
 |------|------|
-| 유즈케이스 | 연말정산 준비 조사를 조사팀에게 맡기고, 결과를 공유용 카드로 받기 |
-| 사용 기능 | 클로드 코드(CLI), 플랜 모드, 서브에이전트, 아티팩트, 스킬 설치, 상태줄 |
-| 산출물 | 조사 계획서(`Plan.md`) · 조사팀 세 명 · 조사 보고서 · 아티팩트 · PDF · 공유용 카드 |
+| 유즈케이스 | 예산·집 크기·전세/월세 조건으로 살 만한 동네 찾기 |
+| 사용 기능 | 프로젝트 규칙 파일(CLAUDE.md)로 작업 방식 고정 · 대화형 화면 제작 · 디자인 시스템 적용 |
+| 산출물 | 대시보드(`index.html`) · 소개 발표자료(HTML·PPTX) · 디자인 기준서(`DESIGN.md`) |
 
-## 파일
+## 파일 안내
 
-| 파일 | 쓰임 |
+| 파일 | 설명 |
 |------|------|
-| [`outputs/`](./outputs) | **7장을 완주해서 나온 산출물 기준본.** 따라 하다 막혔을 때 "제대로 나온 모양"을 확인한다 |
-| [`Chap7_card-design-system.md`](./Chap7_card-design-system.md) | 카드가 메신저에서 실제로 읽히게 하는 최소 기준. 카드를 만들 때 클로드에게 함께 준다 |
-| [`markdown-to-pdf`](../../02-skills/markdown-to-pdf/) | 마크다운을 PDF로 만드는 스킬. 보고서를 문서로 남길 때 쓴다 (스킬 모음에 있음) |
-| [`card-news`](../../02-skills/card-news/) | 카드 디자인 기준을 코드로 고정한 카드뉴스 스킬. 카드를 손으로 만들지 않고 JSON 한 장으로 뽑을 때 쓴다 (스킬 모음에 있음) |
-| [`Chap7_statusline_install.md`](./Chap7_statusline_install.md) | 상태줄 설치 안내와 안 뜰 때 점검 목록 |
-| [`Chap7_statusline-command.sh`](./Chap7_statusline-command.sh) | 상태줄 스크립트 본체 |
+| `index.html` | 대시보드 본체. 더블클릭하면 브라우저에서 열립니다. |
+| `PRD.md` | 무엇을 만들지 먼저 합의한 기획 문서. |
+| `CLAUDE.md` | 이 프로젝트에서 클로드가 지킨 작업 규칙. |
+| `DESIGN.md` | 색·글꼴·여백을 정한 디자인 기준서 (원티드 디자인시스템 참고). |
+| `presentation.html` | 대시보드 소개 발표자료 (6장, 브라우저용. `N` 키로 발표자 노트). |
+| `presentation.pptx` | 같은 발표자료의 PowerPoint 버전 (각 장 노트란에 발표자 노트). |
 
-## 스킬 설치하기
+## 데이터
 
-터미널에서 클로드 코드를 실행한 뒤 이렇게 요청하면 됩니다. 파일을 직접 옮길 필요는 없습니다.
-
-### 7.4.1 보고서를 PDF로: `markdown-to-pdf`
-
-```
-아래 저장소의 markdown-to-pdf 스킬을 내 컴퓨터에 설치해줘.
-https://github.com/ggplab/claude-playbook/tree/main/02-skills/markdown-to-pdf
-- 필요한 패키지가 없으면 설치도 해줘
-- 설치가 끝나면 스킬 목록에 보이는지 확인해줘
-```
-
-설치 후 스킬 목록에 `markdown-to-pdf`가 보이면 성공입니다.
-
-> 이 스킬은 Node.js 18 이상이 필요하고, 첫 실행에서 브라우저 엔진을 내려받을 수 있습니다. 위 프롬프트처럼 "필요한 패키지가 없으면 설치도 해줘"를 함께 적으면 클로드가 알아서 처리합니다.
-
-### 7.4.2 공유용 카드: `card-news`
-
-```
-아래 저장소의 card-news 스킬을 내 컴퓨터에 설치해줘.
-https://github.com/ggplab/claude-playbook/tree/main/02-skills/card-news
-- 설치가 끝나면 스킬 목록에 보이는지 확인해줘
-```
-
-설치 후 스킬 목록에 `card-news`가 보이면 성공입니다. Chrome만 있으면 되고 추가 패키지 설치는 없습니다.
-
-> 이 스킬은 [`Chap7_card-design-system.md`](./Chap7_card-design-system.md)의 기준(글자 3단, 최소 32px, 항목 6개 이하)을 코드로 고정한 것입니다. 기준에 못 미치면 PNG를 만들지 않고 이유를 알려 줍니다. 스킬 없이 기준 문서만 클로드에게 주고 카드를 만들어도 됩니다. 두 방법 모두 책 본문에서 다룹니다.
-
-## 상태줄 설치하기
-
-터미널 맨 아래에 모델, 프로젝트, 브랜치, 비용, 사용량 게이지를 띄우는 설정입니다. 마찬가지로 링크만 주면 됩니다.
-
-```
-아래 주소의 상태줄 스크립트를 ~/.claude/statusline-command.sh 로 저장하고,
-settings.json의 statusLine이 이 파일을 실행하도록 설정해줘.
-https://raw.githubusercontent.com/ggplab/claude-playbook/main/01-hanbit-claude-guidebook/chap7/Chap7_statusline-command.sh
-- jq가 없으면 설치도 해줘
-```
-
-Claude Code를 다시 켜서 입력창 아래에 상태줄 2줄이 보이면 성공입니다. 안 뜰 때 점검 목록은 [`Chap7_statusline_install.md`](./Chap7_statusline_install.md)에 있습니다.
+대시보드가 사용하는 원본 데이터는 이 저장소의
+[`chap6/seoul-apt-latest.csv`](../chap6/seoul-apt-latest.csv) 입니다. (약 27MB, 서울 실거래 12개월)
+`index.html`에는 요약 데이터가 이미 포함되어 있어, CSV 파일 없이도 화면이 그대로 동작합니다.
