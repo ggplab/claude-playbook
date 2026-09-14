@@ -8,12 +8,12 @@
 
 | 파일 | 무엇 | 9장 위치 |
 |------|------|---------|
-| [`plan.md`](./plan.md) | 계획서. 목표·산출물·만드는 순서·내가 직접 해야 하는 일·가정 | 8.2 |
-| [`업무일지.md`](./업무일지.md) | 저자의 실제 일지를 **익명화**한 것. 형태는 실제 그대로 | 8.3 |
-| [`scripts/log-session.ps1`](./scripts/log-session.ps1) | 세션 종료 훅 스크립트 | 8.3 |
-| [`scripts/weekly-summary.mjs`](./scripts/weekly-summary.mjs) | 주간 요약 집계·디스코드 발송 | 8.4 |
-| [`workflows/weekly-summary.yml`](./workflows/weekly-summary.yml) | 금요일 자동 실행 설정 | 8.4 |
-| [`dashboard.html`](./dashboard.html) | 로컬 업무 대시보드 (**목업 데이터**) | 8.4 |
+| [`plan.md`](./plan.md) | 계획서. 목표·산출물·만드는 순서·내가 직접 해야 하는 일·가정 | 9.1.3 |
+| [`업무일지.md`](./업무일지.md) | 저자의 실제 일지를 **익명화**한 것. 형태는 실제 그대로 | 9.2.1 |
+| [`scripts/log-session.ps1`](./scripts/log-session.ps1) | 세션 종료 훅 스크립트 | 9.2.1 |
+| [`scripts/weekly-summary.mjs`](./scripts/weekly-summary.mjs) | 주간 요약 집계·디스코드 발송 | 9.2.4 |
+| [`workflows/weekly-summary.yml`](./workflows/weekly-summary.yml) | 금요일 자동 실행 설정 | 9.2.4 |
+| [`dashboard.html`](./dashboard.html) | 로컬 업무 대시보드 (**목업 데이터**) | 9.3.2 |
 
 ## 쓰기 전에 고쳐야 하는 것
 
@@ -31,7 +31,7 @@ work-log/.github/workflows/weekly-summary.yml
 
 ## 이 안에 없는 것
 
-**디스코드 웹훅 주소와 깃허브 시크릿은 없습니다.** 비밀번호와 같은 값이라 저장소에 올리지 않습니다. 8.4에서 직접 만들어 등록하시면 됩니다.
+**디스코드 웹훅 주소와 깃허브 시크릿은 없습니다.** 비밀번호와 같은 값이라 저장소에 올리지 않습니다. 9.2.3과 9.2.4에서 직접 만들어 등록하시면 됩니다.
 
 **실제 업무일지도 없습니다.** `업무일지.md`는 형식만 보여 주는 예시이고 내용은 지어낸 것입니다. 진짜 일지에는 내가 작업한 폴더 이름이 그대로 남기 때문에, 저자의 것을 올리지 않았습니다. 여러분의 일지도 **비공개 저장소**에 두세요.
 
