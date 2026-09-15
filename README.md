@@ -48,6 +48,7 @@
 | `/new-project` | 새 프로젝트를 일관된 네이밍·git 셋업으로 시작 | [바로가기](./02-skills/new-project/) |
 | `korean-writing-style` | 보고서·메일·발표자료의 AI 말투와 번역투 제거 | [바로가기](./02-skills/korean-writing-style/) |
 | `meeting-agenda` | 결정과 액션이 한 눈에 보이는 회의 아젠다 3종 | [바로가기](./02-skills/meeting-agenda/) |
+| `lecture-slide-make` | 강의안 JSON 한 장으로 강의 덱 생성. 도식 14종을 결정 트리로 선택 | [바로가기](./02-skills/lecture-slide-make/) |
 | `json-to-pptx` | 문안 JSON 한 장으로 보고용 덱 생성 (python-pptx) | [바로가기](./02-skills/json-to-pptx/) |
 | `pptx-finalize` | PPT 폰트 임베드 → PDF, 한글 폰트 깨짐 예방 | [바로가기](./02-skills/pptx-finalize/) |
 | `markdown-to-pdf` | 마크다운 보고서를 표·코드 블록 그대로 PDF로 변환 (8장 실습) | [바로가기](./02-skills/markdown-to-pdf/) |

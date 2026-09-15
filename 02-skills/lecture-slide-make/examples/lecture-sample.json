@@ -1,0 +1,244 @@
+{
+  "title": "업무 자동화 첫걸음",
+  "copyright": "© 2026 Your Name. All rights reserved.",
+  "font": "Noto Sans KR",
+  "theme": "blue-slate",
+  "_meta": {
+    "genre": "lecture",
+    "venue": "vod",
+    "density": {
+      "words_per_slide_max": 40
+    }
+  },
+  "_note": "shot 슬라이드의 촬영본은 이 파일 옆 assets/shots/<shot_id>.png 를 읽는다. 예제에는 이미지가 없어 점선 빈 슬롯으로 나가는 것이 정상이다.",
+  "slides": [
+    {
+      "type": "cover",
+      "event": "사내 교육 3주차",
+      "meta": "2026-10-07, 세미나룸 B",
+      "title": "업무 자동화 첫걸음",
+      "speaker": "홍길동",
+      "notes": "표지. 회차와 장소만 두고 부제를 늘어놓지 않는다."
+    },
+    {
+      "type": "bullets",
+      "title": "강의 목표",
+      "lead": "산출물 3가지",
+      "items": [
+        "반복 작업을 자동화 후보로 골라내는 기준",
+        "규칙과 훅의 차이",
+        "첫 자동화 한 개를 직접 만든 경험"
+      ],
+      "notes": "산출물 목록은 여기에만 둔다. 정리 장에서 반복하지 않는다."
+    },
+    {
+      "type": "divider",
+      "label": "[이론]",
+      "title": "자동화는 어디서 시작하나",
+      "sub": "판단 기준 두 가지"
+    },
+    {
+      "type": "figure",
+      "title": "판단이 필요한가, 반복되는가",
+      "figure": {
+        "preset": "matrix",
+        "layout": "split",
+        "ratio": 0.6,
+        "cols": [
+          "사람이 판단",
+          "기계가 판단"
+        ],
+        "rows": [
+          "매번 다름",
+          "항상 같음"
+        ],
+        "cells": [
+          {
+            "title": "부탁",
+            "points": [
+              "유연하지만 흔들림"
+            ]
+          },
+          {
+            "title": "프롬프트 규칙",
+            "points": [
+              "적어 두면 덜 흔들림"
+            ]
+          },
+          {
+            "title": "체크리스트",
+            "points": [
+              "사람이 매번 확인"
+            ]
+          },
+          {
+            "title": "훅",
+            "points": [
+              "예외 없이 실행"
+            ],
+            "accent": true
+          }
+        ],
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "오른쪽 아래 칸이 자동화 후보",
+            "왼쪽 위 칸은 자동화 대상 아님"
+          ]
+        }
+      },
+      "notes": "대비 관계이고 판단 축이 둘이라 매트릭스로 그린다."
+    },
+    {
+      "type": "figure",
+      "title": "자동화가 자리 잡는 순서",
+      "figure": {
+        "preset": "stages",
+        "layout": "stack",
+        "stages": [
+          {
+            "title": "계획",
+            "points": [
+              "문제 정의",
+              "성공 기준"
+            ]
+          },
+          {
+            "title": "실행",
+            "points": [
+              "만들고 고치기"
+            ]
+          },
+          {
+            "title": "자산화",
+            "points": [
+              "다시 쓸 형태로"
+            ]
+          }
+        ],
+        "loop": "자산이 다음 계획의 출발점",
+        "aside": {
+          "label": "함정",
+          "points": [
+            "실행에서 멈추면 다음 주에 처음부터"
+          ]
+        }
+      },
+      "notes": "순서 관계이고 되돌아가는 흐름이 있어 단계 도식에 루프를 켠다."
+    },
+    {
+      "type": "shot",
+      "title": "설정 화면",
+      "shot": {
+        "shot_id": "settings-hooks",
+        "shot_desc": "설정 > 훅 탭. 이벤트 목록이 보이는 화면",
+        "layout": "side",
+        "label": "화면에서 확인할 것",
+        "points": [
+          "이벤트 이름",
+          "실행할 명령",
+          "마지막 실행 시각"
+        ]
+      },
+      "notes": "화면을 봐야 아는 내용이라 스크린샷 장. 촬영본은 JSON 옆 assets/shots 폴더에 둔다."
+    },
+    {
+      "type": "table",
+      "title": "부탁, 규칙, 훅 비교",
+      "header": [
+        "항목",
+        "부탁",
+        "규칙",
+        "훅"
+      ],
+      "widths": [
+        1.2,
+        1,
+        1,
+        1
+      ],
+      "rows": [
+        [
+          "실행 시점",
+          "그때그때",
+          "대화 시작",
+          "이벤트마다"
+        ],
+        [
+          "빠뜨릴 가능성",
+          "높음",
+          "중간",
+          "없음"
+        ],
+        [
+          "고치는 비용",
+          "없음",
+          "낮음",
+          "중간"
+        ]
+      ],
+      "note": "속성 축이 3개 이상이라 도식 대신 표",
+      "notes": "속성 축이 3개 이상이라 도식 대신 표."
+    },
+    {
+      "type": "divider",
+      "label": "[실습]",
+      "title": "첫 훅 만들기"
+    },
+    {
+      "type": "steps",
+      "title": "실습 진행 순서",
+      "items": [
+        {
+          "name": "후보 고르기",
+          "desc": "지난주 반복한 일 하나"
+        },
+        {
+          "name": "명령 적기",
+          "desc": "한 줄이면 충분"
+        },
+        {
+          "name": "이벤트에 걸기",
+          "desc": "세션 종료에"
+        },
+        {
+          "name": "한 번 돌려 보기",
+          "desc": "기록이 남는지 확인"
+        }
+      ],
+      "notes": "번호는 생성기가 붙인다. 실습 단계 전용 리스트."
+    },
+    {
+      "type": "recap",
+      "title": "정리",
+      "label": "핵심 개념",
+      "items": [
+        "자동화 후보는 판단이 없고 반복되는 일",
+        "규칙은 사람이 지키고 훅은 기계가 지킴",
+        "첫 훅은 한 줄 명령으로 충분"
+      ],
+      "handoff": "다음 주는 훅이 남긴 기록으로 주간 보고 만들기"
+    },
+    {
+      "type": "contacts",
+      "title": "질문과 이어질 곳",
+      "items": [
+        {
+          "shot_id": "qr-community",
+          "shot_desc": "커뮤니티 QR",
+          "label": "커뮤니티"
+        },
+        {
+          "shot_id": "qr-materials",
+          "shot_desc": "실습 자료 QR",
+          "label": "실습 자료"
+        },
+        {
+          "shot_id": "qr-home",
+          "shot_desc": "홈페이지 QR",
+          "label": "홈"
+        }
+      ]
+    }
+  ]
+}

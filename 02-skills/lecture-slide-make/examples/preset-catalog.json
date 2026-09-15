@@ -1,0 +1,846 @@
+{
+  "title": "도식 프리셋 카탈로그",
+  "copyright": "© 2026 Your Name. All rights reserved.",
+  "slides": [
+    {
+      "type": "figure",
+      "title": "two_panel  (arrows: true)",
+      "figure": {
+        "preset": "two_panel",
+        "arrows": true,
+        "left": {
+          "label": "지금 방식",
+          "nodes": [
+            {
+              "title": "내 노트북",
+              "points": [
+                "켜 둬야 돈다"
+              ]
+            },
+            {
+              "title": "수동 실행",
+              "points": [
+                "기억해야 실행"
+              ]
+            },
+            {
+              "title": "알림만",
+              "points": [
+                "기록이 안 남는다"
+              ]
+            }
+          ]
+        },
+        "right": {
+          "label": "바꾼 방식",
+          "nodes": [
+            {
+              "title": "서버",
+              "points": [
+                "항상 켜져 있다"
+              ]
+            },
+            {
+              "title": "예약 실행",
+              "points": [
+                "정해진 시각에"
+              ]
+            },
+            {
+              "title": "파일로 적재",
+              "points": [
+                "기록이 쌓인다"
+              ]
+            }
+          ]
+        },
+        "note": "쓰는 곳: 어디서 도나, 누가 하나가 갈리는 개념",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "좌우는 같은 축의 전후",
+            "화살표가 있으면 순서, 없으면 속성"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "좌우가 서로 다른 흐름으로 돈다. 순서가 있을 때만 화살표를 켠다"
+    },
+    {
+      "type": "figure",
+      "title": "two_panel  (arrows: false)",
+      "figure": {
+        "preset": "two_panel",
+        "arrows": false,
+        "left": {
+          "label": "내 컴퓨터",
+          "nodes": [
+            "꺼지면 자동화도 멈춤",
+            "클로드 구독에 의존",
+            "브리핑은 알림뿐, 기록 없음"
+          ]
+        },
+        "right": {
+          "label": "구글 서버",
+          "nodes": [
+            "항상 켜져 있는 컴퓨터",
+            "정해진 시각에 대신 실행",
+            "클로드 없이 계속 동작"
+          ]
+        },
+        "note": "쓰는 곳: 순서 없는 속성 나열",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "세 항목은 순서가 아니라 속성이다",
+            "화살표를 끄면 없는 흐름을 안 만든다"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "순서 없는 항목 나열. 화살표를 끄면 없는 흐름을 안 만든다"
+    },
+    {
+      "type": "figure",
+      "title": "layers",
+      "figure": {
+        "preset": "layers",
+        "layers": [
+          {
+            "label": "화면 주소",
+            "note": "공개"
+          },
+          {
+            "label": "화면 안 데이터",
+            "note": "로그인 후 로드",
+            "accent": true
+          },
+          {
+            "label": "데이터베이스 행",
+            "note": "본인 것만",
+            "accent": true
+          },
+          {
+            "label": "관리자 키",
+            "note": "서버에만"
+          }
+        ],
+        "note": "쓰는 곳: 무엇을 열고 무엇을 잠그나",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "주소는 누구나 열 수 있다",
+            "데이터는 로그인해야 뜬다",
+            "행은 본인 것만 내려온다",
+            "관리자 키는 서버에만 둔다"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "층마다 성질이 다르다. 잠기거나 달라지는 층만 accent"
+    },
+    {
+      "type": "figure",
+      "title": "timeline",
+      "figure": {
+        "preset": "timeline",
+        "marks": [
+          "작업 시작",
+          "파일 저장",
+          "세션 종료"
+        ],
+        "rows": [
+          {
+            "label": "부탁",
+            "hits": [
+              true,
+              false,
+              false
+            ]
+          },
+          {
+            "label": "훅",
+            "hits": [
+              true,
+              true,
+              true
+            ],
+            "accent": true
+          }
+        ],
+        "note": "쓰는 곳: 결정론",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "찬 점이 실행, 빈 점이 누락",
+            "훅은 세 시점에서 예외가 없다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "같은 시점들에 무엇이 실행되고 무엇이 빠지나. 빈 점이 곧 누락"
+    },
+    {
+      "type": "figure",
+      "title": "stages  (loop)",
+      "figure": {
+        "preset": "stages",
+        "stages": [
+          {
+            "title": "계획",
+            "points": [
+              "문제 정의"
+            ]
+          },
+          {
+            "title": "실행",
+            "points": [
+              "만들고 고치기"
+            ]
+          },
+          {
+            "title": "자산화",
+            "points": [
+              "다시 쓸 형태로"
+            ]
+          }
+        ],
+        "loop": "자산이 다음 계획의 출발점",
+        "note": "쓰는 곳: 순서가 핵심인 개념. 3장 도식과 겹치는지 먼저 본다",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "좌에서 우로 한 번 흐른다",
+            "점선이 자산을 다음 계획으로 되돌린다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "좌에서 우로 흐르고 마지막에서 처음으로 점선이 돈다"
+    },
+    {
+      "type": "figure",
+      "title": "stages  (taper)",
+      "figure": {
+        "preset": "stages",
+        "taper": true,
+        "stages": [
+          {
+            "title": "전체 인구",
+            "points": [
+              "KOSIS 인구총조사"
+            ]
+          },
+          {
+            "title": "경제활동 인구",
+            "points": [
+              "경제활동인구조사"
+            ]
+          },
+          {
+            "title": "사무직",
+            "points": [
+              "직업별 취업자"
+            ]
+          },
+          {
+            "title": "대상 집단",
+            "points": [
+              "추정 결과"
+            ]
+          }
+        ],
+        "note": "쓰는 곳: 공공 통계로 시장 규모 역산",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "단마다 모집단이 좁아진다",
+            "마지막 단이 추정 대상이다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "단마다 좁아진다. 전체에서 대상으로 줄여 가는 역산"
+    },
+    {
+      "type": "figure",
+      "title": "placemap",
+      "figure": {
+        "preset": "placemap",
+        "frame_label": "클로드 앱 화면",
+        "areas": [
+          {
+            "x": 0.0,
+            "w": 0.55,
+            "label": "대화 속 답변",
+            "points": [
+              "텍스트로 흘러가며 위로 밀려남",
+              "쓰려면 복사해서 옮겨야 함"
+            ]
+          },
+          {
+            "x": 0.55,
+            "w": 0.45,
+            "label": "아티팩트",
+            "points": [
+              "별도 패널에 고정",
+              "앱 안에서 바로 편집"
+            ],
+            "accent": true
+          }
+        ],
+        "note": "쓰는 곳: 결과물이 남는 자리가 갈리는 개념",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "프레임이 곧 앱 화면이다",
+            "왼쪽은 흘러가고 오른쪽은 남는다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "한 화면 안에서 무엇이 어디 놓이나. 프레임이 곧 은유"
+    },
+    {
+      "type": "figure",
+      "title": "cards",
+      "figure": {
+        "preset": "cards",
+        "cards": [
+          {
+            "title": "채팅",
+            "points": [
+              "대화와 아티팩트"
+            ]
+          },
+          {
+            "title": "코워크",
+            "points": [
+              "내 폴더와 도구"
+            ]
+          },
+          {
+            "title": "코드",
+            "points": [
+              "파일로 남는 결과"
+            ]
+          },
+          {
+            "title": "디자인",
+            "points": [
+              "프리셋과 기준"
+            ]
+          }
+        ],
+        "note": "쓰는 곳: 4개 제품 지도, 도구 나열",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "넷은 서로 앞서지 않는다",
+            "고르는 기준은 다루는 대상이다"
+          ]
+        },
+        "ratio": 0.58,
+        "per_row": 2
+      },
+      "notes": "동등한 항목 N개. 어느 하나가 앞서지 않는 나열"
+    },
+    {
+      "type": "figure",
+      "title": "hub",
+      "figure": {
+        "preset": "hub",
+        "hub": {
+          "title": "CLAUDE.md",
+          "points": [
+            "한 번 적어 둔 기준"
+          ]
+        },
+        "spokes": [
+          {
+            "title": "모든 대화",
+            "points": [
+              "매번 자동 적용"
+            ]
+          },
+          {
+            "title": "모든 산출물",
+            "points": [
+              "같은 톤과 규칙"
+            ]
+          },
+          {
+            "title": "다음 프로젝트",
+            "points": [
+              "복사해 가져감"
+            ]
+          }
+        ],
+        "note": "쓰는 곳: 지침, 기준 파일, 프로젝트 지식",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "기준 파일 하나가 셋에 걸린다",
+            "점선은 자동 적용을 뜻한다"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "중심 하나가 여러 곳에 걸린다"
+    },
+    {
+      "type": "figure",
+      "title": "branch",
+      "figure": {
+        "preset": "branch",
+        "condition": "원고에 실물이 있나",
+        "condition_points": [
+          "프롬프트, 코드, 화면"
+        ],
+        "branches": [
+          {
+            "edge": "있다",
+            "title": "shot 화면 대조",
+            "points": [
+              "원고 문장 그대로"
+            ],
+            "accent": true
+          },
+          {
+            "edge": "없다",
+            "title": "table 비교표",
+            "points": [
+              "속성 축으로 정리"
+            ]
+          }
+        ],
+        "note": "쓰는 곳: 판정 분기, 폴백 규칙. 의사결정 트리 자체도 이걸로 그린다",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "조건 하나로 길이 갈린다",
+            "실물이 있으면 실물이 먼저다"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "조건 하나로 길이 갈린다"
+    },
+    {
+      "type": "figure",
+      "title": "nested",
+      "figure": {
+        "preset": "nested",
+        "rings": [
+          {
+            "label": "프로젝트",
+            "note": "지침과 파일이 사는 곳"
+          },
+          {
+            "label": "대화",
+            "note": "그 지침이 적용된 세션"
+          },
+          {
+            "label": "아티팩트",
+            "note": "그 대화가 남긴 결과물"
+          }
+        ],
+        "note": "쓰는 곳: 세션과 트랜스크립트, 프로젝트와 대화",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "바깥이 안을 완전히 담는다",
+            "안쪽이 결과물이다"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "포함 관계. 바깥에서 안으로 좁혀 들어간다"
+    },
+    {
+      "type": "figure",
+      "title": "venn  (원 2개)",
+      "figure": {
+        "preset": "venn",
+        "ratio": 0.58,
+        "sets": [
+          {
+            "label": "채팅",
+            "points": [
+              "대화와 아티팩트"
+            ]
+          },
+          {
+            "label": "코워크",
+            "points": [
+              "폴더와 도구"
+            ],
+            "accent": true
+          }
+        ],
+        "overlap": {
+          "label": "프로젝트",
+          "points": [
+            "지침과 파일"
+          ]
+        },
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "두 모드가 겹치는 것이 프로젝트다",
+            "겹친 자리가 한 단 진하다",
+            "포함 관계면 nested, 교집합이면 venn"
+          ]
+        },
+        "note": "쓰는 곳: 두 도구가 공유하는 것"
+      },
+      "notes": "겹치는 집합. nested 는 완전히 포함하고, venn 은 일부만 겹친다"
+    },
+    {
+      "type": "figure",
+      "title": "venn  (원 3개)",
+      "figure": {
+        "preset": "venn",
+        "ratio": 0.58,
+        "sets": [
+          {
+            "label": "채팅",
+            "points": [
+              "생성"
+            ]
+          },
+          {
+            "label": "코워크",
+            "points": [
+              "실행"
+            ]
+          },
+          {
+            "label": "코드",
+            "points": [
+              "자동화"
+            ],
+            "accent": true
+          }
+        ],
+        "overlap": {
+          "label": "공통 자산"
+        },
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "가운데가 셋 다 만족하는 자리다",
+            "겹칠수록 채움이 진해진다",
+            "3원 교집합은 좁아 라벨만 넣는다",
+            "넷 이상은 원으로 안 되니 matrix나 cards로"
+          ]
+        },
+        "note": "쓰는 곳: 세 도구의 공통 자산"
+      },
+      "notes": "셋이 겹친다. 가운데가 셋 다 만족하는 자리"
+    },
+    {
+      "type": "figure",
+      "title": "matrix",
+      "figure": {
+        "preset": "matrix",
+        "cols": [
+          "사람이 판단",
+          "기계가 판단"
+        ],
+        "rows": [
+          "매번 다름",
+          "항상 같음"
+        ],
+        "cells": [
+          {
+            "title": "부탁",
+            "points": [
+              "유연하지만 흔들림"
+            ]
+          },
+          {
+            "title": "프롬프트 규칙",
+            "points": [
+              "적어 두면 덜 흔들림"
+            ]
+          },
+          {
+            "title": "체크리스트",
+            "points": [
+              "사람이 매번 확인"
+            ]
+          },
+          {
+            "title": "훅",
+            "points": [
+              "예외 없이 실행"
+            ],
+            "accent": true
+          }
+        ],
+        "note": "쓰는 곳: 두 축으로 갈리는 개념",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "가로축은 누가 판단하나",
+            "세로축은 매번 같은가",
+            "훅만 두 조건을 다 만족한다"
+          ]
+        },
+        "ratio": 0.58
+      },
+      "notes": "판단 축이 두 개일 때. 강조 칸 하나만 accent"
+    },
+    {
+      "type": "figure",
+      "title": "bars",
+      "figure": {
+        "preset": "bars",
+        "bars": [
+          {
+            "label": "전체 취업자",
+            "value": 2870,
+            "display": "2,870만"
+          },
+          {
+            "label": "사무 종사자",
+            "value": 940,
+            "display": "940만"
+          },
+          {
+            "label": "평생학습 참여",
+            "value": 280,
+            "display": "280만",
+            "accent": true
+          }
+        ],
+        "note": "쓰는 곳: 시장 규모, 한도, 비용. 예시 숫자이므로 실제 출처로 교체",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "막대 길이가 곧 비율이다",
+            "숫자는 출처 있는 것만 쓴다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "수치 비교. 숫자는 출처 있는 것만 쓴다"
+    },
+    {
+      "type": "figure",
+      "title": "area",
+      "figure": {
+        "preset": "area",
+        "x_labels": [
+          "1월",
+          "2월",
+          "3월",
+          "4월",
+          "5월",
+          "6월",
+          "7월",
+          "8월"
+        ],
+        "series": [
+          {
+            "label": "구독",
+            "values": [
+              14,
+              18,
+              24,
+              30,
+              38,
+              46,
+              56,
+              66
+            ],
+            "display": "66",
+            "accent": true
+          },
+          {
+            "label": "단건",
+            "values": [
+              26,
+              26,
+              24,
+              24,
+              22,
+              22,
+              20,
+              18
+            ],
+            "display": "18"
+          },
+          {
+            "label": "제휴",
+            "values": [
+              8,
+              8,
+              10,
+              10,
+              12,
+              12,
+              14,
+              14
+            ],
+            "display": "14"
+          }
+        ],
+        "note": "쓰는 곳: 매출 구성 추이, 사용량 누적. 예시 숫자이므로 실제 출처로 교체",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "초점 밴드는 맨 아래. 밑변이 직선이라 크기가 읽힌다",
+            "y축은 0에서 시작한다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "누적 추세. 구성비가 시간으로 변할 때. y는 0에서 시작한다"
+    },
+    {
+      "type": "figure",
+      "title": "kpi",
+      "figure": {
+        "preset": "kpi",
+        "cards": [
+          {
+            "label": "월 매출",
+            "value": "98",
+            "unit": "백만원",
+            "delta": "▲ 8.9%",
+            "basis": "전월 대비",
+            "accent": true,
+            "spark": [
+              48,
+              52,
+              58,
+              64,
+              72,
+              80,
+              90,
+              98
+            ]
+          },
+          {
+            "label": "신규 문의",
+            "value": "24",
+            "unit": "건",
+            "delta": "▲ 4건",
+            "basis": "전월 대비"
+          },
+          {
+            "label": "수강 완주율",
+            "value": "87",
+            "unit": "%",
+            "delta": "▼ 2.1%p",
+            "basis": "전월 대비",
+            "progress": 0.87
+          }
+        ],
+        "note": "쓰는 곳: 주차 도입의 현황 요약. 예시 숫자이므로 실제 출처로 교체",
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "초점 카드 하나만 accent",
+            "델타에는 비교 기준을 붙인다"
+          ]
+        },
+        "layout": "stack"
+      },
+      "notes": "핵심 지표 카드. 방향은 색이 아니라 ▲▼ 글리프가 나른다"
+    },
+    {
+      "type": "figure",
+      "title": "배치 A  layout: full",
+      "figure": {
+        "preset": "layers",
+        "layers": [
+          {
+            "label": "화면 주소",
+            "note": "공개"
+          },
+          {
+            "label": "화면 안 데이터",
+            "note": "로그인 후",
+            "accent": true
+          },
+          {
+            "label": "데이터베이스 행",
+            "note": "본인 것만",
+            "accent": true
+          }
+        ],
+        "layout": "full"
+      },
+      "notes": "기본. 도식이 전폭을 쓴다"
+    },
+    {
+      "type": "figure",
+      "title": "배치 B  layout: split",
+      "figure": {
+        "preset": "layers",
+        "layout": "split",
+        "ratio": 0.52,
+        "layers": [
+          {
+            "label": "화면 주소",
+            "note": "공개"
+          },
+          {
+            "label": "화면 안 데이터",
+            "note": "로그인 후",
+            "accent": true
+          },
+          {
+            "label": "데이터베이스 행",
+            "note": "본인 것만",
+            "accent": true
+          }
+        ],
+        "aside": {
+          "label": "읽는 법",
+          "points": [
+            "주소는 누구나 열 수 있다",
+            "데이터는 로그인해야 뜬다",
+            "행은 본인 것만 내려온다"
+          ]
+        }
+      },
+      "notes": "좌 도식 + 우 설명. 도식이 못 담는 것만 오른쪽에 글로"
+    },
+    {
+      "type": "figure",
+      "title": "배치 C  layout: stack",
+      "figure": {
+        "preset": "layers",
+        "layout": "stack",
+        "layers": [
+          {
+            "label": "화면 주소",
+            "note": "공개"
+          },
+          {
+            "label": "화면 안 데이터",
+            "note": "로그인 후",
+            "accent": true
+          },
+          {
+            "label": "데이터베이스 행",
+            "note": "본인 것만",
+            "accent": true
+          }
+        ],
+        "aside": {
+          "points": [
+            "주소는 공개, 내용은 잠금이 기본 형태",
+            "층마다 누가 볼 수 있는지가 다르다"
+          ],
+          "label": "읽는 법"
+        }
+      },
+      "notes": "상 도식 + 하 설명. 도식이 가로로 길 때"
+    }
+  ]
+}
