@@ -17,6 +17,7 @@
 | `markdown-to-pdf` | 클로드가 쓴 마크다운 보고서를 표·코드 블록 그대로 PDF로 | 조사 결과를 문서로 보내는 사람 (8장 실습) | [바로가기](./markdown-to-pdf/) |
 | `card-news` | 내용 JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱. 규격 미달이면 PNG를 만들지 않는다 | 요약을 카톡·SNS로 공유하는 사람 (8장 실습) | [바로가기](./card-news/) |
 | `architecture-drawio-diagram` | 로고가 큼직한 시스템 구조도를 파이썬 좌표로 그려 draw.io 파일과 PNG 동시 생성. 없으면 Mermaid 대안 | 블로그·발표에 구조도를 넣는 사람 | [바로가기](./architecture-drawio-diagram/) |
+| `brunch-apply` | 브런치 작가 신청서 네 칸을 심사 기준·후기·겹침 조사 근거로 준비. 제출은 사람이 누른다 | 브런치에 연재를 열려는 사람 | [바로가기](./brunch-apply/) |
 
 ### 함께 쓰면 좋은 조합
 

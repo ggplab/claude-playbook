@@ -52,6 +52,7 @@
 | `markdown-to-pdf` | 마크다운 보고서를 표·코드 블록 그대로 PDF로 변환 (8장 실습) | [바로가기](./02-skills/markdown-to-pdf/) |
 | `card-news` | JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱 생성 (8장 실습) | [바로가기](./02-skills/card-news/) |
 | `architecture-drawio-diagram` | 로고 큼직한 시스템 구조도를 코드로. draw.io 파일 + PNG, 없으면 Mermaid | [바로가기](./02-skills/architecture-drawio-diagram/) |
+| `brunch-apply` | 브런치 작가 신청서를 심사 기준·후기·겹침 조사 근거로 준비. 제출은 사람이 | [바로가기](./02-skills/brunch-apply/) |
 | 스킬 모음 전체 | 스킬 구조·설치 위치 설명 포함 | [바로가기](./02-skills/) |
 
 ### 외부 스킬 모음집
