@@ -54,6 +54,7 @@
 | `card-news` | JSON 한 장으로 휴대폰에서 읽히는 카드뉴스 PNG 덱 생성 (8장 실습) | [바로가기](./02-skills/card-news/) |
 | `architecture-drawio-diagram` | 로고 큼직한 시스템 구조도를 코드로. draw.io 파일 + PNG, 없으면 Mermaid | [바로가기](./02-skills/architecture-drawio-diagram/) |
 | `brunch-apply` | 브런치 작가 신청서를 심사 기준·후기·겹침 조사 근거로 준비. 제출은 사람이 | [바로가기](./02-skills/brunch-apply/) |
+| `run-hackathon` | 하루짜리 해커톤을 기획, 개발, 검증, 녹화, 발표, 제출, 회고로 나눠 세션별로 진행. 화면 둘러보기 장표 스크립트 포함 | [바로가기](./02-skills/run-hackathon/) |
 | 스킬 모음 전체 | 스킬 구조·설치 위치 설명 포함 | [바로가기](./02-skills/) |
 
 ### 외부 스킬 모음집

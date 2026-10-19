@@ -1,0 +1,47 @@
+{
+  "url": "https://watch-party-host-1011836345966.asia-northeast3.run.app/room?demo=1",
+  "viewport": [1500, 844],
+  "goto_timeout_ms": 120000,
+  "pre": [
+    {"click": "#tourSkip", "optional": true},
+    {"click": "#catchBtn"},
+    {"wait_for": ".ai-card .ai-chips", "timeout_ms": 60000},
+    {"wait_for": "#log .msg.locked.spoiler", "timeout_ms": 180000}
+  ],
+  "wait_ms": 1000,
+  "copyright": "© 2026 BuildnWrite. All rights reserved.",
+  "eyebrow_en": "Screen tour",
+  "eyebrow_ko": "화면 둘러보기",
+  "foot_en": "Live app, demo room, 2026-10-16",
+  "foot_ko": "라이브 앱, 데모 방, 2026-10-16",
+  "items": [
+    {
+      "selector": "#statusline",
+      "text_box": true,
+      "pad": 10,
+      "title_en": "Like a TV: everyone sees the same scene",
+      "title_ko": "TV처럼: 모두 같은 장면을 본다",
+      "caption_en": "Like a TV: everyone sees the same scene",
+      "caption_ko": "TV처럼: 모두 같은 장면을 본다",
+      "side": "l"
+    },
+    {
+      "selector": ".ai-card",
+      "pad": 4,
+      "title_en": "Feature 1: recap up to what’s airing now",
+      "title_ko": "기능 1: 지금 방송 중인 장면까지만 요약",
+      "caption_en": "Feature 1: recap up to what’s airing now",
+      "caption_ko": "기능 1: 지금 방송 중인 장면까지만 요약",
+      "side": "r"
+    },
+    {
+      "selector": "#log .msg.locked.spoiler",
+      "pad": 4,
+      "title_en": "Feature 2: spoiler blurred by the scene it talks about",
+      "title_ko": "기능 2: 채팅이 말하는 장면 기준으로 스포일러 가림",
+      "caption_en": "Feature 2: spoiler blurred by the scene it talks about",
+      "caption_ko": "기능 2: 채팅이 말하는 장면 기준으로 스포일러 가림",
+      "side": "r"
+    }
+  ]
+}
