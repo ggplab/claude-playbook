@@ -40,6 +40,21 @@
 
 ---
 
+## 🗺️ 클로드 치트시트
+
+클로드 데스크톱 앱 기능을 A3 앞뒤 두 면에 정리했습니다. 앞면은 처음 쓰는 분을 위한 기본, 뒷면은 업무 파이프라인과 서브에이전트 루프 같은 심화입니다.
+
+| 자료 / Resource | 설명 / Description | 링크 / Link |
+|------|------|------|
+| 클로드 치트시트 (A3, 2쪽) | 눈에 보이는 기능, CLAUDE.md, 스킬, 서브에이전트, 훅, 모델 추천, 심화 | [바로가기](./03-cheatsheet-for-claude/), [PDF](./03-cheatsheet-for-claude/build/claude-cheatsheet-a3-ko.pdf) |
+
+<p align="center">
+  <img src="./03-cheatsheet-for-claude/build/claude-cheatsheet-a3-ko-front.png" alt="클로드 치트시트 앞면: 기본" width="100%"/>
+  <img src="./03-cheatsheet-for-claude/build/claude-cheatsheet-a3-ko-back.png" alt="클로드 치트시트 뒷면: 심화" width="100%"/>
+</p>
+
+---
+
 ## 🧩 스킬 모음
 
 **스킬(Skill)** 은 반복되는 작업 절차를 한 번 정의해 두면, 필요할 때 클로드가 알아서 꺼내 쓰는 기능입니다.

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Claude Cheat Sheet</title>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+/*__TOKENS__*/
+/* 글자 크기: 시트 이름(display)만 예외이고, 나머지는 크기 3단(l, m, s)만 쓴다. 굵기는 400과 700 */
+:root { --t-display: 30pt; --t-l: 14pt; --t-m: 9.6pt; --t-s: 8pt;
+  --mono: "SF Mono", Menlo, "Pretendard", monospace; }
+@page { size: 420mm 297mm; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fff; }
+body { width: 420mm; font-family: "Pretendard", sans-serif; color: var(--ink); font-size: var(--t-m);
+  line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  word-break: keep-all; overflow-wrap: break-word; }
+.page { position: relative; width: 420mm; height: 297mm; padding: 10mm 12mm 8mm; overflow: hidden;
+  display: flex; flex-direction: column; gap: 4mm; break-after: page; }
+mark { background: linear-gradient(transparent 58%, var(--highlighter) 58%); color: inherit; padding: 0 1px; }
+.lucide { width: 100%; height: 100%; stroke-width: 1.9; }
+b, strong { font-weight: 700; }
+pre, code, .mono { font-family: var(--mono); }
+
+/* 머리 */
+header { display: flex; align-items: flex-end; justify-content: space-between;
+  border-bottom: 2.4px solid var(--coral); padding-bottom: 2.6mm; flex: none; }
+.brand { display: flex; align-items: flex-end; gap: 5mm; }
+h1 { font-size: var(--t-display); font-weight: 700; letter-spacing: -0.5px; color: var(--navy); line-height: 1; }
+.subtitle { font-size: var(--t-l); font-weight: 700; color: var(--ink_h3); padding-bottom: 0.6mm; }
+.stamp { display: flex; gap: 6mm; align-items: flex-end; }
+.stamp dl { display: grid; grid-template-columns: auto auto; column-gap: 2.5mm; row-gap: 0.4mm; font-size: var(--t-s); }
+.stamp dt { color: var(--gray_h4); }
+.stamp dd { font-weight: 700; }
+.qr { width: 16mm; height: 16mm; border: 1.5px dashed var(--gray_h4); border-radius: 2mm;
+  display: grid; place-items: center; font-size: var(--t-s); color: var(--gray_h4); text-align: center; }
+
+/* 공통 */
+.sec-h { display: flex; align-items: baseline; gap: 3mm; margin-bottom: 2.2mm; }
+.sec-h h2 { font-size: var(--t-l); font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 2mm; }
+.sec-h h2 .n { width: 6.4mm; height: 6.4mm; border-radius: 50%; background: var(--coral); color: #fff;
+  font-size: var(--t-m); display: grid; place-items: center; }
+.sec-h p { font-size: var(--t-s); color: var(--gray_h4); }
+.chip { display: inline-block; border-radius: 99px; font-size: var(--t-s); font-weight: 700; padding: 0 2mm; line-height: 1.55; white-space: nowrap; }
+.chip.chat { background: var(--peach); color: var(--navy); }
+.chip.cowork { background: var(--lavender); color: var(--navy); border: 1px solid var(--lavender_edge); }
+.chip.code { background: var(--navy); color: #fff; }
+.chip.ext { background: #fff; color: var(--navy); border: 1px solid var(--navy); }
+.chip.none { background: #fff; color: var(--gray_h4); border: 1px solid #D6D7DA; }
+.ico { width: 9mm; height: 9mm; border-radius: 2.4mm; background: #fff; color: var(--navy);
+  border: 1.6px solid var(--navy); padding: 1.6mm; flex: none; }
+pre { background: var(--lavender); border-left: 2.4px solid var(--lavender_edge); border-radius: 1.6mm;
+  padding: 1.8mm 2.6mm; font-size: var(--t-s); line-height: 1.38; white-space: pre-wrap; word-break: break-all; overflow: hidden; }
+pre .ttl { display: block; color: var(--gray_h4); margin-bottom: 0.6mm; font-family: "Pretendard", sans-serif; font-weight: 700; }
+
+/* 앞면: 영역 + 순서 */
+.intro { display: grid; grid-template-columns: 96mm 1fr; gap: 4mm; flex: none; }
+.areas { background: var(--lavender); border-radius: 3mm; padding: 2.4mm 3.4mm; }
+.areas .t { font-weight: 700; color: var(--navy); margin-bottom: 1mm; }
+.areas ul { list-style: none; display: flex; flex-direction: column; gap: 0.7mm; }
+.areas li { display: grid; grid-template-columns: 15mm 1fr; column-gap: 2mm; align-items: center; font-size: var(--t-s); }
+.areas .note { font-size: var(--t-s); color: var(--gray_h4); margin-top: 1mm; }
+.path { display: grid; grid-template-columns: 22mm repeat(7, 1fr); gap: 2.2mm; }
+.path-title { font-weight: 700; color: var(--navy); align-self: center; line-height: 1.3; }
+.step { position: relative; background: var(--cream_chapter); border-radius: 3mm; padding: 2.4mm 2.6mm 2.4mm 10mm;
+  display: flex; flex-direction: column; justify-content: center; gap: 1mm; }
+.step .n { position: absolute; left: 2.4mm; top: 2.6mm; width: 6mm; height: 6mm; border-radius: 50%;
+  background: var(--coral); color: #fff; font-weight: 700; display: grid; place-items: center; }
+.step .do { font-weight: 700; line-height: 1.3; }
+.step:not(:last-child)::after { content: ""; position: absolute; right: -2mm; top: 50%; width: 1.8mm; height: 1.8mm;
+  border-top: 1.6px solid var(--coral); border-right: 1.6px solid var(--coral); transform: translate(0,-50%) rotate(45deg); }
+
+/* 앞면: 보이는 기능 타일 */
+.tiles { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2.6mm; }
+.tile { border: 1.4px solid var(--lavender_edge); border-radius: 3mm; padding: 2.2mm 2.8mm; display: flex; flex-direction: column; gap: 1.2mm; }
+.tile .hd { display: flex; align-items: center; gap: 2mm; }
+.tile .ico { width: 7.6mm; height: 7.6mm; padding: 1.3mm; border-radius: 2mm; }
+.tile .nm { font-weight: 700; color: var(--navy); line-height: 1.2; }
+.tile .wh { font-size: var(--t-s); color: var(--ink); font-weight: 700; line-height: 1.35; }
+.tile .wn { font-size: var(--t-s); color: var(--ink_h3); line-height: 1.4; }
+
+/* 앞면: 안에서 도는 기능 */
+.cmp { margin-top: 3mm; border: 1.4px solid var(--lavender_edge); border-radius: 3mm; padding: 2mm 3.4mm; }
+.cmp table { font-size: var(--t-s); }
+.cmp th { text-align: left; color: var(--gray_h4); font-weight: 700; padding: 1mm; border-bottom: 1.4px solid var(--ink); }
+.cmp td:first-child { font-weight: 700; color: var(--navy); white-space: nowrap; }
+.cmp td.hard { font-weight: 700; color: var(--coral); }
+.lower { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 98mm; gap: 4mm; }
+.inner { display: flex; flex-direction: column; min-height: 0; }
+.cards { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.4mm; }
+.card { border: 2px solid var(--coral); border-radius: 3.5mm; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.card-head { background: var(--cream_summary); display: flex; align-items: center; gap: 2.4mm; padding: 2.6mm 3.4mm; }
+.card-head h3 { font-size: var(--t-l); font-weight: 700; color: var(--navy); line-height: 1.15; }
+.card-head .trg { margin-left: auto; font-size: var(--t-s); font-weight: 700; color: var(--navy);
+  border: 1.4px solid var(--navy); border-radius: 99px; padding: 0 2.2mm; white-space: nowrap; }
+.card-body { padding: 2.6mm 3.4mm 3mm; display: flex; flex-direction: column; gap: 2mm; flex: 1; min-height: 0; }
+.slot { display: grid; grid-template-columns: 8mm 1fr; column-gap: 2mm; align-items: start; }
+.slot > .lb { font-size: var(--t-s); font-weight: 700; color: var(--blue); padding-top: 0.5mm; }
+.where { display: flex; flex-direction: column; gap: 0.9mm; }
+.where .row { display: grid; grid-template-columns: 9.5mm 1fr; gap: 1.4mm; align-items: start; font-size: var(--t-s); line-height: 1.5; }
+.where .row.none span:last-child { color: var(--gray_h4); }
+.ask { background: var(--cream_chapter); border-radius: 1.6mm; padding: 1.4mm 2.4mm; font-size: var(--t-s); color: var(--ink); }
+.ask::before { content: "“"; color: var(--coral); font-weight: 700; }
+.ask::after { content: "”"; color: var(--coral); font-weight: 700; }
+.mistake { margin-top: auto; display: grid; grid-template-columns: 4.6mm 1fr; gap: 1.6mm; align-items: start;
+  border-top: 1.4px dashed var(--orange_light); padding-top: 2mm; font-size: var(--t-s); color: var(--ink_h3); }
+.mistake .w { color: var(--coral); width: 4.6mm; height: 4.6mm; }
+.mistake b { color: var(--ink); }
+
+.side { display: flex; flex-direction: column; gap: 3.4mm; min-height: 0; }
+.panel { border-radius: 3.5mm; padding: 3mm 3.6mm; }
+.panel h3 { font-size: var(--t-l); font-weight: 700; color: var(--navy); margin-bottom: 1.8mm; display: flex; align-items: center; gap: 2mm; }
+.panel h3 .i2 { width: 5.6mm; height: 5.6mm; }
+.models { border: 2px solid var(--coral); }
+.models .lead { background: var(--highlighter); display: inline-block; font-weight: 700; padding: 0.2mm 1.6mm; margin-bottom: 1.6mm; }
+table { width: 100%; border-collapse: collapse; font-size: var(--t-s); }
+td { padding: 1.3mm 1mm; border-bottom: 1px solid #E6E7EA; vertical-align: top; line-height: 1.35; }
+td.m { font-weight: 700; color: var(--navy); white-space: nowrap; }
+td.k { color: var(--gray_h4); white-space: nowrap; }
+.models .note { font-size: var(--t-s); color: var(--gray_h4); margin-top: 1.4mm; }
+.decide { background: var(--cream_summary); flex: 1; display: flex; flex-direction: column; }
+.decide ol { list-style: none; display: flex; flex-direction: column; gap: 1.3mm; flex: 1; justify-content: space-evenly; }
+.decide li { display: grid; grid-template-columns: 1fr auto; gap: 2mm; align-items: center;
+  background: #fff; border-radius: 2mm; padding: 1.5mm 2.4mm; font-size: var(--t-s); }
+.decide .to { font-weight: 700; color: #fff; background: var(--navy); border-radius: 99px; padding: 0 2.4mm; white-space: nowrap; }
+.decide .to::before { content: "→ "; }
+
+footer { display: flex; justify-content: space-between; font-size: var(--t-s); color: var(--gray_h4); flex: none; }
+
+/* 뒷면 */
+.pipe-wrap { border: 2px solid var(--coral); border-radius: 3.5mm; padding: 3.4mm 4mm; flex: none; }
+.pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7mm; }
+.node { position: relative; background: var(--cream_summary); border-radius: 3mm; padding: 3mm 3.4mm; display: flex; flex-direction: column; gap: 1.2mm; }
+.node:not(:last-child)::after { content: ""; position: absolute; right: -5.6mm; top: 50%; width: 3.4mm; height: 3.4mm;
+  border-top: 2.4px solid var(--coral); border-right: 2.4px solid var(--coral); transform: translate(0,-50%) rotate(45deg); }
+.node .top { display: flex; align-items: center; gap: 2.2mm; }
+.node .role { font-size: var(--t-s); font-weight: 700; color: var(--blue); }
+.node .nm { font-size: var(--t-l); font-weight: 700; color: var(--navy); line-height: 1.15; }
+.node .does { background: #fff; border-radius: 1.6mm; padding: 1.4mm 2.2mm; font-size: var(--t-s); }
+.steps5 { display: grid; grid-template-columns: 20mm repeat(5, 1fr); gap: 2.4mm; margin-top: 3mm; align-items: center; }
+.steps5 .t { font-weight: 700; color: var(--navy); }
+.steps5 .s { display: flex; gap: 1.6mm; align-items: center; font-size: var(--t-s); }
+.steps5 .s i { flex: none; width: 5mm; height: 5mm; border-radius: 50%; background: var(--peach); color: var(--navy); font-style: normal; font-weight: 700; display: grid; place-items: center; }
+
+.back-mid { flex: 1; min-height: 0; display: grid; grid-template-columns: 172mm 1fr; gap: 4mm; }
+.loop { border: 1.4px solid var(--lavender_edge); border-radius: 3.5mm; padding: 3.4mm 4mm; display: flex; flex-direction: column; gap: 2.6mm; min-height: 0; }
+.ring { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm; padding-bottom: 7mm; }
+.ring .rn { position: relative; background: var(--lavender); border-radius: 2.6mm; padding: 2.4mm 2.6mm; font-weight: 700; text-align: center; line-height: 1.35; display: grid; place-items: center; min-height: 15mm; }
+.ring .rn.end { background: var(--navy); color: #fff; }
+.ring .rn:nth-child(-n+3)::after { content: ""; position: absolute; right: -4.6mm; top: 50%; width: 2.6mm; height: 2.6mm;
+  border-top: 2px solid var(--navy); border-right: 2px solid var(--navy); transform: translate(0,-50%) rotate(45deg); }
+.ring .back { position: absolute; left: 37.5%; width: 25%; bottom: 0.6mm; height: 6mm;
+  border: 2px solid var(--coral); border-top: none; border-radius: 0 0 3mm 3mm; }
+.ring .back span { position: absolute; left: 50%; bottom: -0.6mm; transform: translate(-50%, 50%); background: #fff; padding: 0 1.6mm;
+  font-size: var(--t-s); font-weight: 700; color: var(--coral); white-space: nowrap; }
+.ring .back::before { content: ""; position: absolute; left: -1.2mm; top: -1mm; width: 2.2mm; height: 2.2mm;
+  border-left: 2px solid var(--coral); border-top: 2px solid var(--coral); transform: rotate(45deg); }
+.stop { font-weight: 700; }
+.prompt { background: var(--cream_chapter); border-radius: 2mm; padding: 2mm 3mm; font-size: var(--t-s); }
+.prompt b { color: var(--blue); margin-right: 1.6mm; }
+.repeat td.c { font-family: var(--mono); font-weight: 700; color: var(--navy); white-space: nowrap; }
+.repeat td.w { color: var(--ink_h3); white-space: nowrap; }
+.parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4mm; }
+.parts div { background: var(--lavender); border-radius: 2mm; padding: 1.8mm 2.4mm; font-size: var(--t-s); }
+.parts b { display: block; color: var(--navy); font-size: var(--t-m); }
+.roles td.m { font-weight: 700; color: var(--navy); white-space: nowrap; }
+.roles td.k { color: var(--gray_h4); }
+.note2 { font-size: var(--t-s); color: var(--gray_h4); }
+.adv .a .ask, .adv .a pre { margin-top: auto; }
+.adv-wrap { display: flex; flex-direction: column; min-height: 0; }
+.adv { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); gap: 3mm; }
+.adv .a { border: 1.4px solid var(--lavender_edge); border-radius: 3mm; padding: 2.6mm 3.2mm; display: flex; flex-direction: column; gap: 1.2mm; }
+.adv .a .hd { display: flex; align-items: center; gap: 2.2mm; }
+.adv .a .ico { width: 7.6mm; height: 7.6mm; padding: 1.3mm; border-radius: 2mm; }
+.adv .a .nm { font-weight: 700; color: var(--navy); }
+.adv .a .wh { font-size: var(--t-s); font-weight: 700; background: var(--lavender); border-radius: 1.4mm; padding: 0.6mm 2mm; align-self: flex-start; }
+.adv .a .wt { font-size: var(--t-s); color: var(--ink_h3); }
+.safe { background: var(--cream_summary); border-radius: 3mm; padding: 2.6mm 4mm; display: grid; grid-template-columns: 38mm repeat(6, 1fr); gap: 2.6mm; align-items: center; flex: none; }
+.safe .t { font-weight: 700; color: var(--navy); display: flex; gap: 1.6mm; align-items: center; }
+.safe .t span { width: 5mm; height: 5mm; color: var(--coral); }
+.safe .s { font-size: var(--t-s); background: #fff; border-radius: 2mm; padding: 1.4mm 2.2mm; height: 100%; display: flex; align-items: center; }
+</style>
+</head>
+<body>
+<section class="page" id="front"></section>
+<section class="page" id="back"></section>
+<script>
+const D = /*__DATA__*/null;
+const AREA = Object.fromEntries(D.areas.map(([k, n]) => [k, n]));
+AREA.ext = "크롬"; AREA.none = "채팅";
+const icon = n => `<i data-lucide="${n}"></i>`;
+const chip = (k, label) => `<span class="chip ${k}">${label ?? AREA[k]}</span>`;
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+const header = sub => `<header>
+  <div class="brand"><h1>${D.title}</h1><div class="subtitle">${sub}</div></div>
+  <div class="stamp"><dl>${D.stamp.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    <div class="qr">QR<br>자리</div></div></header>`;
+const footer = n => `<footer><span>${D.sources}</span><span>${n} / 2</span><span>${D.copyright}</span></footer>`;
+const secH = (n, t, sub) => `<div class="sec-h"><h2><span class="n">${n}</span>${t}</h2><p>${sub}</p></div>`;
+
+function card(c) {
+  const L = D.slot_labels;
+  return `<section class="card" id="${c.id}">
+    <div class="card-head"><div class="ico">${icon(c.icon)}</div><h3>${c.name}</h3><span class="trg">${c.trigger}</span></div>
+    <div class="card-body">
+      <div class="slot"><span class="lb">${L.what}</span><p>${c.what}</p></div>
+      <div class="slot"><span class="lb">${L.when}</span><p>${c.when}</p></div>
+      <div class="slot"><span class="lb">${L.where}</span><div class="where">
+        ${c.where.map(([k, t]) => `<div class="row ${k}">${chip(k)}<span>${t}</span></div>`).join("")}</div></div>
+      <div class="slot"><span class="lb">${L.ask}</span><div class="ask">${c.ask}</div></div>
+      <div class="slot"><span class="lb">${L.example}</span><pre><span class="ttl">${esc(c.example_title)}</span>${esc(c.example)}</pre></div>
+      <div class="mistake"><span class="w">${icon("triangle-alert")}</span><div><b>${L.mistake}</b> ${c.mistake}</div></div>
+    </div></section>`;
+}
+
+document.getElementById("front").innerHTML = `${header(D.subtitle)}
+<div class="intro">
+  <div class="areas"><div class="t">${D.areas_title}</div>
+    <ul>${D.areas.map(([k, n, d]) => `<li>${chip(k, n)}<span>${d}</span></li>`).join("")}</ul>
+    <div class="note">${D.areas_note}</div></div>
+  <div class="path"><div class="path-title">${D.path_title}</div>
+    ${D.path.map(s => `<div class="step"><span class="n">${s.n}</span><div class="do">${s.do}</div><div>${chip(s.where)}</div></div>`).join("")}</div>
+</div>
+<div>${secH(1, D.ui_title, D.ui_sub)}
+  <div class="tiles">${D.ui.map(u => `<div class="tile">
+    <div class="hd"><div class="ico">${icon(u.icon)}</div><div><div class="nm">${u.name}</div>${chip(u.area)}</div></div>
+    <div class="wh">${u.where}</div><div class="wn">${u.when}</div></div>`).join("")}</div></div>
+<div class="lower">
+  <div class="inner">${secH(2, D.inner_title, D.inner_sub)}<div class="cards">${D.core.map(card).join("")}</div>
+    <div class="cmp"><table><thead><tr>${D.compare_cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
+      <tbody>${D.compare.map(r => `<tr>${r.map((v, i) => `<td class="${i === 4 && v === "강제" ? "hard" : ""}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>
+  <aside class="side">
+    <div class="panel models"><h3><span class="i2">${icon("cpu")}</span>${D.model_title}</h3>
+      <div class="lead">${D.model_lead}</div>
+      <table>${D.models.map(([m, k, w]) => `<tr><td class="m">${m}</td><td class="k">${k}</td><td>${w}</td></tr>`).join("")}</table>
+      <div class="note">${D.model_note}</div></div>
+    <div class="panel decide"><h3><span class="i2">${icon("signpost")}</span>${D.decide_title}</h3>
+      <ol>${D.decide.map(([q,a]) => `<li><span>${q}</span><span class="to">${a}</span></li>`).join("")}</ol></div>
+  </aside>
+</div>
+${footer(1)}`;
+
+const B = D.back;
+document.getElementById("back").innerHTML = `${header(D.subtitle_back)}
+<div class="pipe-wrap">${secH(3, B.pipe_title, B.pipe_sub)}
+  <div class="pipe">${B.pipe.map(p => `<div class="node">
+    <div class="top"><div class="ico">${icon(p.icon)}</div><div><div class="role">${p.role}</div><div class="nm">${p.name}</div></div></div>
+    <div class="does">${p.does}</div></div>`).join("")}</div>
+  <div class="steps5"><div class="t">${B.pipe_steps_title}</div>
+    ${B.pipe_steps.map((s, i) => `<div class="s"><i>${i + 1}</i><span>${s}</span></div>`).join("")}</div>
+</div>
+<div class="back-mid">
+  <div class="loop">${secH(4, B.loop_title, B.loop_sub)}
+    <div class="ring">${B.loop_nodes.map((n, i) => `<div class="rn ${i === 3 ? "end" : ""}">${n}</div>`).join("")}
+      <div class="back"><span>다시 검수</span></div></div>
+    <div class="stop"><mark>${B.loop_stop}</mark></div>
+    <div class="prompt"><b>부탁 예</b>${B.loop_prompt}</div>
+    <div><div class="sec-h" style="margin-bottom:1mm"><h2 style="font-size:var(--t-m)">${B.repeat_title}</h2></div>
+      <table class="repeat">${B.repeat.map(([c, w, d]) => `<tr><td class="c">${esc(c)}</td><td class="w">${w}</td><td>${d}</td></tr>`).join("")}</table></div>
+    <div><div class="sec-h" style="margin-bottom:1mm"><h2 style="font-size:var(--t-m)">${B.loop_parts_title}</h2></div>
+      <div class="parts">${B.loop_parts.map(([t, x]) => `<div><b>${t}</b>${x}</div>`).join("")}</div></div>
+    <div><div class="sec-h" style="margin-bottom:1mm"><h2 style="font-size:var(--t-m)">${B.role_title}</h2><p>${B.role_note}</p></div>
+      <table class="roles">${B.roles.map(([w, m, k]) => `<tr><td>${w}</td><td class="m">${m}</td><td class="k">${k}</td></tr>`).join("")}</table></div>
+  </div>
+  <div class="adv-wrap">${secH(5, B.adv_title, "익숙해지면 하나씩")}
+    <div class="adv">${B.adv.map(a => `<div class="a"><div class="hd"><div class="ico">${icon(a.icon)}</div><span class="nm">${a.name}</span></div>
+      <span class="wh">${esc(a.where)}</span><span class="wt">${a.what}</span>
+      ${a.ex[0] === "ask" ? `<div class="ask">${a.ex[1]}</div>` : `<pre>${esc(a.ex[1])}</pre>`}</div>`).join("")}</div></div>
+</div>
+<div class="safe"><div class="t"><span>${icon("life-buoy")}</span>${B.safe_title}</div>
+  ${B.safe.map(s => `<div class="s">${s}</div>`).join("")}</div>
+${footer(2)}`;
+
+lucide.createIcons();
+document.body.dataset.ready = "1";
+</script>
+</body>
+</html>

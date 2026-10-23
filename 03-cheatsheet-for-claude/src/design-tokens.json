@@ -1,0 +1,47 @@
+{
+  "note": "치트시트에 쓰는 색 토큰. 〈클로드 부려먹기의 기술〉 디자인 시스템에서 가져온 값이다.",
+  "color": {
+    "coral": {
+      "hex": "#F37657"
+    },
+    "navy": {
+      "hex": "#18469D"
+    },
+    "blue": {
+      "hex": "#4564AF"
+    },
+    "orange_light": {
+      "hex": "#F9A763"
+    },
+    "peach": {
+      "hex": "#FDD9CA"
+    },
+    "cream_summary": {
+      "hex": "#FEEEDB"
+    },
+    "cream_chapter": {
+      "hex": "#FEEFE7"
+    },
+    "lavender": {
+      "hex": "#EAEBF6"
+    },
+    "lavender_edge": {
+      "hex": "#AFB3D9"
+    },
+    "highlighter": {
+      "hex": "#F6DE60"
+    },
+    "ink": {
+      "hex": "#221E1F"
+    },
+    "ink_h3": {
+      "hex": "#3F3F40"
+    },
+    "gray_h4": {
+      "hex": "#7A7C7F"
+    },
+    "warning_red": {
+      "hex": "#DC2626"
+    }
+  }
+}
